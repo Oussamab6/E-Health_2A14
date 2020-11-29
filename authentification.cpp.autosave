@@ -1,0 +1,14 @@
+#include "authentification.h"
+#include "ui_authentification.h"
+
+authentification::authentification(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::authentification)
+{
+    ui->setupUi(this);
+}
+
+authentification::~authentification()
+{
+    delete ui;
+}
