@@ -103,7 +103,7 @@ void Gerer::on_pushButton_mod_clicked()
 void Gerer::on_pushButton_sup_clicked()
 {
 
-   int x =ui->lineEdit_supp->text().toInt();
+   int x =ui->lineEditCin_2->text().toInt();
     bool test=ee.supprimer(x);
     QMessageBox msgBox;
 
