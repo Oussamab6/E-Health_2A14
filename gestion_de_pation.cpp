@@ -30,11 +30,10 @@ void Gestion_de_pation::on_pushButton_clicked()
     int num=ui->Enum->text().toInt();
     QString nom=ui->Enom->text();
     QString prenom=ui->Eprenom->text();
-     int j=ui->Ej->text().toInt();
-     int m=ui->Em->text().toInt();
-     int a=ui->Ea->text().toInt();
-     int contact=ui->Econtact->text().toInt();
-   patient p(nom,prenom,j,m,a,contact,num);
+   QString DDN=ui->dateEdit->text();
+    int contact=ui->Econtact->text().toInt();
+
+    patient p(nom,prenom,DDN,contact,num);
 
 bool test=p.ajouter();
 QMessageBox msgBox;
@@ -58,8 +57,8 @@ void Gestion_de_pation::on_supprimer_clicked()
 
     if(test)
        {
-       msgBox.setText("Suppression avec succes.");
-       ui->tab_patient_2->setModel(p1.afficher());
+        msgBox.setText("Suppression avec succes.");
+        ui->tab_patient_2->setModel(p1.afficher());
 }
 
     else

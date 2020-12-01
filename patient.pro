@@ -1,4 +1,4 @@
-QT       += core gui multimedia
+QT       += core gui multimedia sql
 
 QT       += core gui sql
 QT += widgets
@@ -14,7 +14,6 @@ SOURCES += \
     connection.cpp \
     facturation.cpp \
     gesiondedm.cpp \
-    gestion_de_pation.cpp \
     liste.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -24,15 +23,11 @@ HEADERS += \
     connection.h \
     facturation.h \
     gesiondedm.h \
-    gestion_de_pation.h \
     liste.h \
     mainwindow.h \
     patient.h
 
 FORMS += \
-    facturation.ui \
-    gesiondedm.ui \
-    gestion_de_pation.ui \
     liste.ui \
     mainwindow.ui
 

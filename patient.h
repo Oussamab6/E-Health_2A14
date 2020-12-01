@@ -7,30 +7,33 @@
 
 class patient
 {
-    QString nom,prenom;
-    int  j,m,a,contact,num;
+    QString nom,prenom,DDN;
+    int  contact,num;
 public:
     patient(){}
-    patient(QString,QString,int,int,int,int,int);
+    patient(QString,QString,QString,int,int);
     //getters
     QString getnom(){return nom;}
     QString getprenom(){return prenom;}
-    int getj(){return j;}
-    int getm(){return m;}
-    int geta() {return a;}
+    QString getDDN(){return DDN;}
     int getcontact() {return contact;}
       int getnum() {return num;}
     //setters
     void setnom(QString n){nom=n;}
     void setprenom(QString p){prenom=p;}
-    void setj(int j){this->j=j;}
-    void setm(int m){this->m=m;}
-    void seta(int a){this->a=a;}
+    void setDDN(QString){this->DDN=DDN;}
     void setcontact(int contact){this->contact=contact;}
     void setnum(int num){this->num=num;}
     //fonction
     bool ajouter();
     QSqlQueryModel *afficher();
     bool supprimer(int);
+    bool modifier();
+    void chercher(int nu,QString n,QString p);
+    void chercher_num(int nu);
+    void chercher_nom_prenom(QString n, QString p);
+    QSqlQueryModel* afficher_unepatient();
+    QSqlQueryModel* afficher_unpatient_num();
+    QSqlQueryModel* afficher_unpatient_nom_prenom();
 };
 #endif // PATIENT_H*/
