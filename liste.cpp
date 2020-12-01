@@ -263,8 +263,9 @@ for (int i(0);i<2 ;i++)
 { if (tab1[i]==true)
          {a++;}
          a=a+c2+c3;
-         return a;
+
 }
+
 
    return a;
 }
