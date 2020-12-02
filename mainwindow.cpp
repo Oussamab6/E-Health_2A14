@@ -10,9 +10,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     song= new QMediaPlayer(this);
-        img= new QPropertyAnimation(ui->label_img, "geometry");
+        img= new QPropertyAnimation(ui->label_4, "geometry");
         img->setDuration(3000);
-        img->setStartValue(ui->label_img->geometry());
+        img->setStartValue(ui->label_4->geometry());
         img->setEndValue(QRect(450,50,200,200));
         img->start();
 }
@@ -26,7 +26,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-   song->setMedia(QUrl::fromLocalFile("C:\\"));
+   song->setMedia(QUrl::fromLocalFile("C:\\Users\\asus\\Desktop\\projet\\sound1.mp3"));
     song->play();
     qDebug()<<song->errorString();
     Form f;

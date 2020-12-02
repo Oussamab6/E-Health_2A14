@@ -168,15 +168,7 @@ void Form::on_comboBox_reche_activated(const QString &arg1)
 
     }
 }
-/*
 
-
-
-void Gerer::on_comboBox_chercher_activated(const QString &arg1)
-{
-
-}
-*/
 
 
 

@@ -130,24 +130,17 @@ void medicament::chercher_nom(QString n)
 QSqlQueryModel* medicament::afficher_nom()
 {
   QSqlQueryModel* model=new QSqlQueryModel();
-
-
-
-
    model->setQuery("SELECT* FROM MEDICAMENTS where Nom='"+nom+"' ");
 
    model->setHeaderData(0, Qt::Horizontal, QObject::tr("nom"));
    model->setHeaderData(1, Qt::Horizontal, QObject::tr("reference"));
    model->setHeaderData(2, Qt::Horizontal, QObject::tr("num"));
 
-
-
    return  model;
 }
 QSqlQueryModel* medicament::afficher_reference()
 {
   QSqlQueryModel* model=new QSqlQueryModel();
-
 
     QString ref;
   ref= QString::number(reference);
@@ -167,7 +160,7 @@ QSqlQueryModel* medicament::afficher_nom_num()
   QSqlQueryModel* model=new QSqlQueryModel();
   QString nume;
   nume= QString::number(num);
-   model->setQuery("SELECT* FROM MEDICAMENTS where Nom='"+nom+"' and num='"+nume+"' ");
+  model->setQuery("SELECT* FROM MEDICAMENTS where Nom='"+nom+"' and num='"+nume+"' ");
 
    model->setHeaderData(0, Qt::Horizontal, QObject::tr("nom"));
    model->setHeaderData(1, Qt::Horizontal, QObject::tr("reference"));

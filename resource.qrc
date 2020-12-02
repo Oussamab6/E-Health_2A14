@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>projet sante.png</file>
+    </qresource>
+</RCC>
