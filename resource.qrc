@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>projet sante.png</file>
+        <file>../oui.png</file>
+        <file>../non.png</file>
     </qresource>
 </RCC>

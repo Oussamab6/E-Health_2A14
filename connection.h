@@ -6,7 +6,6 @@
 
 class connection
 {
-
 public:
     connection();
      bool createconnect();

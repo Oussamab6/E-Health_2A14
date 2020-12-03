@@ -11,6 +11,7 @@ CONFIG += c++11
 SOURCES += \
     connection.cpp \
     form.cpp \
+    machine.cpp \
     main.cpp \
     mainwindow.cpp \
     medicament.cpp
@@ -18,6 +19,7 @@ SOURCES += \
 HEADERS += \
     connection.h \
     form.h \
+    machine.h \
     mainwindow.h \
     medicament.h
 
