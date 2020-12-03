@@ -5,6 +5,7 @@
 #include <QDialog>
 #include<QPropertyAnimation>
 #include "EMPLOYE.h"
+#include "tache.h"
 
 
 
@@ -34,10 +35,25 @@ private slots:
     void on_pushButton_refreche_clicked();
 
 
+    void on_pushButton_ajouter_Tache_clicked();
+
+    void on_pushButton_mod_2_clicked();
+
+    void on_pushButton_sup_2_clicked();
+
+    void on_tableView_em_2_activated(const QModelIndex &index);
+
+    void on_pushButton_refreche_2_clicked();
+
+    void on_comboBox_trier_2_activated(const QString &arg1);
+
+    void on_comboBox_chercher_2_activated(const QString &arg1);
+
 private:
     Ui::Gerer *ui;
     QPropertyAnimation* animation ;
     EMPLOYE ee;
+    tache t ;
 };
 
 #endif // GERER_H

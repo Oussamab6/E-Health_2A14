@@ -4,6 +4,7 @@
 #include<QThread>
 #include <QMessageBox>
 #include "EMPLOYE.h"
+#include "tache.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include<QDebug>
@@ -32,6 +33,8 @@ Gerer::Gerer(QWidget *parent) :
     ui->setupUi(this);
     EMPLOYE e;
     ui->tableView_em->setModel(e.afficher());
+    ui->tableView_em_2->setModel(t.afficher_tache());
+
     //l'animation pour "Bienvenue"
     animation= new QPropertyAnimation(ui->label_7, "geometry");
     animation->setDuration(3000);
@@ -64,19 +67,27 @@ void Gerer::on_pushButton_ajouter_clicked()
     QString mail=ui->lineEditMail->text();
     QString DDN =ui->dateEdit->text() ;
     QString Tache =ui->comboBox_Tache->currentText();
-
+    QString cinc=QString::number(cin);
+if(cinc.size()==8)
+{
  EMPLOYE e (cin,nom,prenom,mail,DDN,Tache);
  bool test=e.ajouter();
  QMessageBox msgBox;
-
  if(test)
    {  msgBox.setText("Ajout avec succes.");
      ui->tableView_em->setModel(e.afficher());
- }
+   }
  else
-     msgBox.setText("Echec d'ajout");
-     msgBox.exec();
+    { msgBox.setText("Echec d'ajout");
+     msgBox.exec();}
 }
+else{
+    QMessageBox msgBox;
+    msgBox.setText("Entrer 8 chiffres pour le CIN SVP");
+    msgBox.exec();}
+}
+
+
 void Gerer::on_pushButton_mod_clicked()
 {
         int cin = ui->lineEditCin_2->text().toInt() ;
@@ -100,6 +111,8 @@ void Gerer::on_pushButton_mod_clicked()
 
 
 }
+
+
 void Gerer::on_pushButton_sup_clicked()
 {
 
@@ -114,12 +127,11 @@ void Gerer::on_pushButton_sup_clicked()
 
     }
     else
-        msgBox.setText("Echec de suppression");
+       { msgBox.setText("Echec de suppression");
         msgBox.exec();
-
+       }
 
 }
-
 
 
 
@@ -168,7 +180,6 @@ void Gerer::on_pushButton_refreche_clicked()
 
 }
 
-
 void Gerer::on_comboBox_trier_activated(const QString &arg1)
 {
     EMPLOYE ee;
@@ -201,6 +212,7 @@ void Gerer::on_comboBox_trier_activated(const QString &arg1)
    }
 
 }
+
 void Gerer::on_comboBox_chercher_activated(const QString &arg1)
 {
     EMPLOYE ee;
@@ -291,6 +303,154 @@ void Gerer::on_pushButton_imprimer_clicked()
 
             return;
 }
+
+
+//*********************************************************************************************************************
+//*********************************************************************************************************************
+//*********************************************************************************************************************
+
+void Gerer::on_pushButton_refreche_2_clicked()
+{
+    tache t;
+        ui->tableView_em_2->setModel(t.afficher_tache());
+}
+
+void Gerer::on_pushButton_ajouter_Tache_clicked()
+{
+    QString type_tache=ui->comboBox_type_tache->currentText();
+    int salaire=ui->lineEdit_salaire->text().toInt();
+    QString date_debut=ui->dateEdit_debut->text();
+    QString date_fin=ui->dateEdit_fin->text();
+    tache t(type_tache,salaire,date_debut,date_fin);
+    bool test=t.ajouter_tache();
+    QMessageBox msgBox;
+    if (test)
+    {
+        QMessageBox::information(nullptr, QObject::tr("AJOUTER"),
+                    QObject::tr("AJOUT SUCCES.\n"
+                                "Click Cancel to exit."), QMessageBox::Cancel);
+        ui->tableView_em_2->setModel(t.afficher_tache());
+    }
+    else {QMessageBox::information(nullptr, QObject::tr("AJOUTER"),
+                                   QObject::tr("ECHEC D'AJOUT.\n"
+                                               "Click Cancel to exit."), QMessageBox::Cancel);}
+
+}
+void Gerer::on_pushButton_mod_2_clicked()
+{
+    QString type_tache=ui->comboBox_type_tache_2->currentText();
+    int salaire=ui->lineEdit_salaire_2->text().toInt();
+    QString date_debut=ui->dateEdit_debut_2->text();
+    QString date_fin=ui->dateEdit_fin_2->text();
+    tache t(type_tache,salaire,date_debut,date_fin);
+    bool test=t.modifier_tache();
+    QMessageBox msgBox;
+    if (test)
+    {
+        QMessageBox::information(nullptr, QObject::tr("AJOUTER"),
+                    QObject::tr("MODIFICATION SUCCES.\n"
+                                "Click Cancel to exit."), QMessageBox::Cancel);
+        ui->tableView_em_2->setModel(t.afficher_tache());
+    }
+    else {QMessageBox::information(nullptr, QObject::tr("AJOUTER"),
+                                   QObject::tr("ECHEC MODIFICATION.\n"
+                                               "Click Cancel to exit."), QMessageBox::Cancel);}
+
+}
+
+void Gerer::on_pushButton_sup_2_clicked()
+{
+    QString x=ui->comboBox_type_tache_2->currentText();
+    bool test=t.supprimer_tache(x);
+    QMessageBox msgBox;
+
+    if(test)
+       {
+    msgBox.setText("Suppression avec succes.");
+    ui->tableView_em_2->setModel(t.afficher_tache());//refreche
+
+    }
+    else
+       { msgBox.setText("Echec de suppression");
+        msgBox.exec();}
+}
+void Gerer::on_tableView_em_2_activated(const QModelIndex &index)
+{
+    tache t;
+    QString val = ui->tableView_em_2->model()->data(index).toString();
+    QString salaire_string= QString::number(t.get_salaire());
+    QSqlQuery query;
+    query.prepare(("select * from tache where type_tache=:val or salaire=:val or date_debut=:val or date_fin=:val  "));
+    query.bindValue(":val", val);
+    if (query.exec())
+    {
+        while (query.next())
+        {
+            ui->comboBox_type_tache_2->setCurrentText(query.value(0).toString());
+            ui->lineEdit_salaire_2->setText(query.value(1).toString());
+            ui->dateEdit_debut_2->setDate(query.value(2).toDate());
+            ui->dateEdit_fin_2->setDate(query.value(3).toDate());
+        }
+    }
+    else
+    {
+        QMessageBox::critical(this ,tr("error::"),query.lastError().text());
+    }
+}
+void Gerer::on_comboBox_trier_2_activated(const QString &arg1)
+{
+    tache t;
+    QSqlQueryModel * modal = new QSqlQueryModel();
+    QSqlQuery * qry = new QSqlQuery();
+    if (arg1=="DATE_DEBUT")
+    {
+        qry->prepare("Select * from tache order by date_debut ");
+        qry->exec();
+        modal->setQuery(*qry);
+        ui->tableView_em_2->setModel(modal);
+        ui->tableView_em_2->show();
+    }
+    else if (arg1=="DATE_FIN")
+    {
+        qry->prepare("Select * from tache order by date_fin ");
+        qry->exec();
+        modal->setQuery(*qry);
+        ui->tableView_em_2->setModel(modal);
+        ui->tableView_em_2->show();
+    }
+    else if (arg1=="SALAIRE ET DATE_DEBUT ET DATE_FIN")
+    {
+        qry->prepare("Select * from tache order by salaire,date_debut,date_fin ");
+        qry->exec();
+        modal->setQuery(*qry);
+        ui->tableView_em_2->setModel(modal);
+        ui->tableView_em_2->show();
+    }
+}
+void Gerer::on_comboBox_chercher_2_activated(const QString &arg1)
+{
+    tache t ;
+    if (arg1=="salaire")
+    {
+        t.chercher_tache_salaire(ui->lineEdit_salaire_2->text().toInt());
+        ui->tableView_em_2->setModel(t.afficher_tache_salaire());
+    }
+    else if (arg1=="date_debut_type_salaire")
+    {
+        t.chercher_date_debut_type_salaire(ui->dateEdit_debut_2->text(),ui->comboBox_type_tache_2->currentText(),ui->lineEdit_salaire_2->text().toInt());
+        ui->tableView_em_2->setModel(t.afficher_date_debut_type_salaire());
+    }
+    else if(arg1=="type")
+    {
+        t.chercher_type(ui->comboBox_type_tache_2->currentText());
+        ui->tableView_em_2->setModel(t.afficher_type());
+    }
+
+
+}
+
+
+
 
 
 

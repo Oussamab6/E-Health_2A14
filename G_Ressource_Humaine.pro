@@ -12,13 +12,15 @@ SOURCES += \
     connection.cpp \
     gerer.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    tache.cpp
 
 HEADERS += \
     EMPLOYE.h \
     connection.h \
     gerer.h \
-    mainwindow.h
+    mainwindow.h \
+    tache.h
 
 FORMS += \
     gerer.ui \
