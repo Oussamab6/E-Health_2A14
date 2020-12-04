@@ -209,6 +209,17 @@ QSqlQueryModel* EMPLOYE::afficher_unemploye_nom_prenom()
 
    return  model;
 }
+QSqlQueryModel* EMPLOYE::rechercher_2(QString input, QString filtrer)
+{
+    QSqlQueryModel * modal=new QSqlQueryModel();
+    QSqlQuery query;
+    query.prepare("SELECT *FROM employe WHERE "+filtrer+" LIKE '%' || :inputValue || '%'");
+    query.bindValue(":inputValue",input);
+    query.exec();
+    modal->setQuery(query);
+    return modal;
+
+}
 
 /*QSqlQueryModel* EMPLOYE::afficher_employetrier()
 {

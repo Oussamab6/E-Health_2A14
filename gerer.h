@@ -49,6 +49,12 @@ private slots:
 
     void on_comboBox_chercher_2_activated(const QString &arg1);
 
+    void on_pushButton_pdf_2_clicked();
+
+    void on_pushButton_imprimer_2_clicked();
+
+    void on_lineEdit_cursorPositionChanged(int arg1, int arg2);
+
 private:
     Ui::Gerer *ui;
     QPropertyAnimation* animation ;

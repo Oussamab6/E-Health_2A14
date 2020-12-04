@@ -22,8 +22,8 @@ test=true;
 
     return  test;
 }
-void Connection::fermerconnection()
-{
+    void Connection::fermerconnection()
+    {
 
-    test_bd.close();
-}
+        test_bd.close();
+    }

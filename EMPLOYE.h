@@ -36,6 +36,7 @@ public:
     QSqlQueryModel* afficher_unemploye();
     QSqlQueryModel* afficher_unemploye_cin();
     QSqlQueryModel* afficher_unemploye_nom_prenom();
+    QSqlQueryModel * rechercher_2(QString input,QString filtrer);
 
    // QSqlQueryModel* afficher_employetrier();
 
