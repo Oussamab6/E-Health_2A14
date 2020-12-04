@@ -1,0 +1,22 @@
+#ifndef DONNEUR_H
+#define DONNEUR_H
+#include <QDate>
+#include <QString>
+#include <QSqlQuery>
+#include <QSqlQueryModel>
+
+class donneur
+{
+    QString cin;
+    QString nom;
+    QString prenom;
+    QString email;    
+    QString sexe;
+    QString groupesanguin;
+    QString dateprelev;
+public:
+    donneur(QString,QString,QString,QString,QString,QString,QString);
+    donneur();
+};
+
+#endif // DONNEUR_H
