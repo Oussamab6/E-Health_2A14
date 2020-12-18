@@ -3,6 +3,7 @@
 #include "gerer.h"
 #include "connection.h"
 #include<QThread>
+#include "arduinoo.h"
 
 
 
@@ -17,6 +18,8 @@ MainWindow::MainWindow(QWidget *parent)
     animation->setStartValue(ui->label_6->geometry());
     animation->setEndValue(QRect(450,50,200,200));
     animation->start();
+
+
 
 
 }
@@ -80,9 +83,7 @@ void MainWindow::on_pushButton_2_clicked()
     player->setMedia(QUrl::fromLocalFile("C:\\Users\\iTech\\Desktop\\QT validation finale\\G_Ressource_Humaine\\Quitter_Sound.mp3"));
     player->play();
     qDebug()<< player->errorString();
-
     sleep(2);
-
     close();
 
 }

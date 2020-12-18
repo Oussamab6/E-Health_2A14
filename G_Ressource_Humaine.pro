@@ -1,4 +1,4 @@
-QT       += core gui multimedia sql printsupport
+QT       += core gui multimedia sql printsupport serialport
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
@@ -9,6 +9,7 @@ CONFIG += c++11
 
 SOURCES += \
     EMPLOYE.cpp \
+    arduino.cpp \
     connection.cpp \
     gerer.cpp \
     main.cpp \
@@ -17,6 +18,7 @@ SOURCES += \
 
 HEADERS += \
     EMPLOYE.h \
+    arduino.h \
     connection.h \
     gerer.h \
     mainwindow.h \

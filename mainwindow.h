@@ -31,5 +31,7 @@ private:
     QSqlDatabase test_bd;
     QMediaPlayer* player;
     QPropertyAnimation* animation ;
+
+
 };
 #endif // MAINWINDOW_H

@@ -6,6 +6,8 @@
 #include<QPropertyAnimation>
 #include "EMPLOYE.h"
 #include "tache.h"
+#include "arduino.h"
+
 
 
 
@@ -20,9 +22,9 @@ class Gerer : public QDialog
 public:
     explicit Gerer(QWidget *parent = nullptr);
     void sleep(int s) { QThread::sleep(s); }
-
     ~Gerer();
 private slots:
+    void detction_de_chaleur();
     void on_pushButton_ajouter_clicked();
     void on_pushButton_sup_clicked();
     void on_tableView_em_activated(const QModelIndex &index);
@@ -55,11 +57,19 @@ private slots:
 
     void on_lineEdit_cursorPositionChanged(int arg1, int arg2);
 
+
+
+    void on_pushButton_6_clicked();
+
+    void on_pushButton_8_clicked();
+
 private:
     Ui::Gerer *ui;
     QPropertyAnimation* animation ;
     EMPLOYE ee;
     tache t ;
+    QByteArray data;
+    arduino A;
 };
 
 #endif // GERER_H

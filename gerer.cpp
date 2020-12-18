@@ -21,6 +21,8 @@
 #include <QPrintDialog>
 #include<QtSql/QSqlQuery>
 #include<QVariant>
+//#include "arduinoo.h"
+//#include "arduino_final.h"
 
 
 
@@ -31,6 +33,22 @@ Gerer::Gerer(QWidget *parent) :
     ui(new Ui::Gerer)
 {
     ui->setupUi(this);
+   //**********************************************************
+   int ret =A.connect_arduino();//lancer la connection to arduino
+    switch (ret) {
+
+    case(0):qDebug()<<"arduino is available and connect to : "<<A.getarduino_port_name();
+        break;
+    case(1):qDebug()<<"arduino is available and not  connect to : "<<A.getarduino_port_name();
+        break;
+    case(-1):qDebug()<<"arduino is not available ";
+        break;
+
+    }
+    QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(detction_de_chaleur()));
+
+
+    //*****************************************************************
     EMPLOYE e;
     ui->tableView_em->setModel(e.afficher());
     ui->tableView_em_2->setModel(t.afficher_tache());
@@ -49,6 +67,7 @@ Gerer::Gerer(QWidget *parent) :
     animation->setEndValue(QRect(150,200,350,150));
     animation->start();
     MainWindow M ;
+
 
 
 }
@@ -138,11 +157,14 @@ void Gerer::on_pushButton_sup_clicked()
 void Gerer::on_tableView_em_activated(const QModelIndex &index)
 {   EMPLOYE ee;
     QString val = ui->tableView_em->model()->data(index).toString();
+    int x = ui->tableView_em->model()->data(index).toString().toInt();
+
     QString cin_string= QString::number(ee.get_cin());
 
     QSqlQuery query;
-     query.prepare("select * from employe where cin =:val or nom =:val or prenom=:val or mail=:val or DDN=:val or Tache=:val  ");
+     query.prepare("select * from employe where cin =:x or nom =:val or prenom=:val or mail=:val or DDN=:val or Tache=:val  ");
      query.bindValue(":val", val);
+     query.bindValue(":x",x);
 
     if (query.exec())
     {
@@ -185,7 +207,7 @@ void Gerer::on_comboBox_trier_activated(const QString &arg1)
     EMPLOYE ee;
    QSqlQueryModel * modal = new QSqlQueryModel();
    QSqlQuery * qry = new QSqlQuery();
-   if (arg1=="DDN et nom et cin")
+   if (arg1=="cin et nom et prenom")
    {
     qry->prepare("Select * from employe order by cin,nom,prenom ");
     qry->exec();
@@ -195,7 +217,7 @@ void Gerer::on_comboBox_trier_activated(const QString &arg1)
    }
   else if (arg1=="nom")
    {
-    qry->prepare("Select * from employe order by nom desc");
+    qry->prepare("Select * from employe order by nom");
     qry->exec();
     modal->setQuery(*qry);
     ui->tableView_em->setModel(modal);
@@ -204,7 +226,7 @@ void Gerer::on_comboBox_trier_activated(const QString &arg1)
 
    else if (arg1=="prenom")
    {
-    qry->prepare("Select * from employe order by prenom ");
+    qry->prepare("Select * from employe order by prenom desc");
     qry->exec();
     modal->setQuery(*qry);
     ui->tableView_em->setModel(modal);
@@ -450,11 +472,6 @@ void Gerer::on_comboBox_chercher_2_activated(const QString &arg1)
 }
 
 
-
-
-
-
-
 void Gerer::on_pushButton_pdf_2_clicked()
 {
     QString strStream;
@@ -526,7 +543,35 @@ void Gerer::on_lineEdit_cursorPositionChanged(int arg1, int arg2)
     QString inputValue,filtrerChecked;
             inputValue=ui->lineEdit->text();
             ui->tableView_em->setModel(ee.rechercher_2(inputValue,"nom"));
+}
+void Gerer::detction_de_chaleur()
+{
+    data=A.read_from_arduino();
+    if (data=="1")
+    {
+        QMessageBox::information(nullptr, QObject::tr("CHALEUR DETECTER"),
+                    QObject::tr("UNE CHALEUR A ETE DETECTER .\n"
+                                "SVP VOIR ARDUINO ."), QMessageBox::Cancel);
+    }
+    if (data=="4")
+
+        ui->label_38->setText("LAMPE ALLUMER");//afficher on si les données reçues par arduino est 1
+
+    else if(data=="5")
+
+        ui->label_38->setText("LAMPE ETEINDRE");
+}
 
 
+
+void Gerer::on_pushButton_6_clicked()
+{
+    A.write_to_arduino("4");
+
+}
+
+void Gerer::on_pushButton_8_clicked()
+{
+    A.write_to_arduino("5");
 
 }
