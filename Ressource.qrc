@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>ICON_EHEALTH.png</file>
+        <file>imprimante.jpg</file>
+        <file>modifier.jpg</file>
+        <file>recherche.png</file>
+        <file>supprimer.jpg</file>
+    </qresource>
+</RCC>
