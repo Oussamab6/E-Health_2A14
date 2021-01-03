@@ -21,6 +21,7 @@
 #include <QPrintDialog>
 #include<QtSql/QSqlQuery>
 #include<QVariant>
+#include <QFontDialog>
 //#include "arduinoo.h"
 //#include "arduino_final.h"
 
@@ -574,4 +575,27 @@ void Gerer::on_pushButton_8_clicked()
 {
     A.write_to_arduino("5");
 
+}
+
+void Gerer::on_pushButton_clicked()
+{
+    A.write_to_arduino("2");
+
+}
+
+void Gerer::on_pushButton_5_clicked()
+{
+    A.write_to_arduino("3");
+
+}
+
+void Gerer::on_font_clicked()
+{
+    bool ok ;
+    QFont font = QFontDialog::getFont(&ok, this);
+    if(ok){
+
+    } else {
+
+    }
 }

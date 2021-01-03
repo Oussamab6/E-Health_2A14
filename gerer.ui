@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>0</y>
+     <y>70</y>
      <width>1041</width>
      <height>551</height>
     </rect>
@@ -44,7 +44,7 @@ background-color: rgb(255, 255, 255);
 </string>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="page_3">
      <property name="geometry">
@@ -1680,6 +1680,14 @@ color: rgb(255, 0, 0);</string>
      </widget>
     </widget>
     <widget class="QWidget" name="page_4">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>981</width>
+       <height>293</height>
+      </rect>
+     </property>
      <attribute name="label">
       <string>Arduino </string>
      </attribute>
@@ -1781,6 +1789,19 @@ font: 81 11pt &quot;Rockwell Extra Bold&quot;;</string>
      </widget>
     </widget>
    </widget>
+  </widget>
+  <widget class="QPushButton" name="font">
+   <property name="geometry">
+    <rect>
+     <x>274</x>
+     <y>30</y>
+     <width>301</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Choisir Font </string>
+   </property>
   </widget>
  </widget>
  <resources>
