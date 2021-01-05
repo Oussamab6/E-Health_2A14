@@ -13,6 +13,8 @@ public:
     Connection();
     bool createconnect();
     void fermerconnection() ;
+    QSqlDatabase get_db();
+
 };
 
 #endif // CONNECTION_H

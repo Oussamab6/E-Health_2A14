@@ -33,6 +33,8 @@ public:
     explicit Gerer(QWidget *parent = nullptr);
     void sleep(int s) { QThread::sleep(s); }
     ~Gerer();
+    void afficher();
+
 private slots:
     void detction_de_chaleur();
     void on_pushButton_ajouter_clicked();
@@ -110,7 +112,7 @@ private slots:
 
     void on_pushButton_supp_2_clicked();
 
-    void on_tableView_activated(const QModelIndex &index);
+    void on_tableView_activated(const QModelIndex &index);    
 
     void on_pushButton_R_clicked();
 
@@ -158,6 +160,51 @@ private slots:
 
     void on_pushButtonTrierDon_clicked();
 
+    /********************************************************************************************/
+    void on_pushButton_gc_clicked();
+
+    void on_pushButton_2_gc_clicked();
+
+    void on_pushButton_14_gc_clicked();
+
+    void on_pushButton_15_gc_clicked();
+
+    void on_pushButton_7_gc_clicked();
+
+    void on_tableView_gc_clicked(const QModelIndex &index);
+
+    void on_pushButton_8_gc_clicked();
+
+    void on_pushButton_9_gc_clicked();
+
+    void on_pushButton_16_gc_clicked();
+
+    void on_pushButton_6_gc_clicked();
+
+    void on_pushButton_18_gc_clicked();
+    void makePlot_remise ();
+        QVector<double> Statistique_remise();
+        void on_pushButton_17_gc_clicked();
+
+        void on_pushButton_19_gc_clicked();
+
+        void on_pushButton_3_gc_clicked();
+
+        void on_tableView_2_gc_clicked(const QModelIndex &index);
+
+        void on_pushButton_4_gc_clicked();
+
+        void on_pushButton_11_gc_clicked();
+
+        void on_pushButton_10_gc_clicked();
+
+        void on_pushButton_12_gc_clicked();
+
+        void on_pushButton_5_gc_clicked();
+
+        void on_pushButton_20_gc_clicked();
+        void uglyPrint2(QPrinter *printer);
+
 private:
     Ui::Gerer *ui;
     QPropertyAnimation* animation ;
@@ -171,6 +218,8 @@ private:
     machine e;
     donneur tmpdonneur;
     don tmpdon;
+    QSqlTableModel *model;
+
 
 
 };

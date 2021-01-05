@@ -11,6 +11,7 @@ SOURCES += \
     EMPLOYE.cpp \
     arduino.cpp \
     connection.cpp \
+    contrat.cpp \
     don.cpp \
     donneur.cpp \
     dossiermedical.cpp \
@@ -19,13 +20,17 @@ SOURCES += \
  main.cpp \
     mainwindow.cpp \
     medicaments.cpp \
+    partenaire.cpp \
     patient.cpp \
+    qcustomplot.cpp \
+    tableprinter.cpp \
     tache.cpp
 
 HEADERS += \
     EMPLOYE.h \
     arduino.h \
     connection.h \
+    contrat.h \
     don.h \
     donneur.h \
     dossiermedical.h \
@@ -33,7 +38,10 @@ HEADERS += \
     machine.h \
     mainwindow.h \
     medicaments.h \
+    partenaire.h \
     patient.h \
+    qcustomplot.h \
+    tableprinter.h \
     tache.h
 
 FORMS += \

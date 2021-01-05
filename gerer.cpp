@@ -24,6 +24,11 @@
 #include<QtSql/QSqlQuery>
 #include<QVariant>
 #include <QDebug>
+#include "contrat.h"
+#include "qcustomplot.h"
+#include "partenaire.h"
+#include "tableprinter.h"
+
 
 //#include "arduinoo.h"
 //#include "arduino_final.h"
@@ -105,6 +110,12 @@ Gerer::Gerer(QWidget *parent) :
     ui->tableViewDon->setModel(tmpdon.afficher());
     ui->tableViewDon->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableViewDon->setSelectionMode(QAbstractItemView::SingleSelection);
+
+    model = new QSqlTableModel;
+    model->select();
+   // ui->tableView->setModel(tmpcontrat.affichertable());
+    model = new QSqlTableModel;
+    model->select();
 }
 
 Gerer::~Gerer()
@@ -1285,6 +1296,8 @@ void Gerer:: on_comboBox_reche_3_activated(const QString &arg1)
                   }
 }
 
+/******************************************************/
+
 
 void Gerer::on_pushButton_AjouterDonneur_clicked()
 {
@@ -1580,3 +1593,346 @@ void Gerer::on_pushButtonTrierDon_clicked()
     else if (ui->checkBoxRefDon->isChecked() && ui->checkBoxQuantiteDon->isChecked() && ui->checkBoxDateDon->isChecked())
         ui->tableViewDon->setModel(tmpdon.trier("ID_DON,QUANTITE,DATE_PRELEV",ui->comboBoxDon->currentText()));
 }
+
+/*********************************************************************/
+
+void Gerer::afficher()
+{   Connection c;
+QSqlQueryModel* modal = new QSqlQueryModel();
+QSqlQuery* qry=new QSqlQuery(c.get_db());
+qry->prepare("SELECT* from contrat");
+qry->exec();
+modal->setQuery(*qry);
+ui->tableView_gc->setModel(modal);
+}
+void Gerer::on_pushButton_gc_clicked()
+{
+
+ui->stackedWidget->setCurrentIndex(1);
+ui->tableView_gc->setSelectionBehavior(QAbstractItemView::SelectRows);
+contrat c;
+c.affichertable(ui);
+}
+
+void Gerer::on_pushButton_2_gc_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(2);
+    ui->tableView_2_gc->setSelectionBehavior(QAbstractItemView::SelectRows);
+    partenaire c;
+    c.affichertable(ui);
+}
+
+void Gerer::on_pushButton_14_gc_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+
+}
+
+void Gerer::on_pushButton_15_gc_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+void Gerer::on_pushButton_7_gc_clicked()
+{
+    ui->tableView_gc->setSelectionBehavior(QAbstractItemView::SelectRows);
+    contrat c;
+    c.ajouter(ui);
+    c.affichertable(ui);
+}
+
+void Gerer::on_tableView_gc_clicked(const QModelIndex &index)
+{
+    ui->lineEdit_18_gc->setText(ui->tableView_gc->model()->data(ui->tableView_gc->model()->index(ui->tableView_gc->selectionModel()->currentIndex().row(),0)).toString());
+            ui->lineEdit_19_gc->setText(ui->tableView_gc->model()->data(ui->tableView_gc->model()->index(ui->tableView_gc->selectionModel()->currentIndex().row(),1)).toString());
+            ui->lineEdit_20_gc->setText(ui->tableView_gc->model()->data(ui->tableView_gc->model()->index(ui->tableView_gc->selectionModel()->currentIndex().row(),2)).toString());
+            ui->lineEdit_21_gc->setText(ui->tableView_gc->model()->data(ui->tableView_gc->model()->index(ui->tableView_gc->selectionModel()->currentIndex().row(),3)).toString());
+            ui->lineEdit_22_gc->setText(ui->tableView_gc->model()->data(ui->tableView_gc->model()->index(ui->tableView_gc->selectionModel()->currentIndex().row(),4)).toString());
+}
+
+void Gerer::on_pushButton_8_gc_clicked()
+{
+    contrat c;
+    c.modifier(ui);
+    c.affichertable(ui);
+}
+
+void Gerer::on_pushButton_9_gc_clicked()
+{
+    contrat c;
+c.supprimer(ui);
+c.affichertable(ui);
+}
+
+void Gerer::on_pushButton_16_gc_clicked()
+{
+    QString valeur =ui->lineEdit_9_gc->text();
+    contrat *e= new contrat();
+    ui->tableView_gc->setModel(e->recherchercontrat(valeur));
+}
+
+void Gerer::on_pushButton_6_gc_clicked()
+{
+    contrat *e = new contrat();
+    ui->tableView_gc->setModel(e->triercontrat());
+}
+
+void Gerer::on_pushButton_18_gc_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(3);
+
+}
+QVector<double> Gerer::Statistique_remise()
+{
+    QSqlQuery q;
+    QVector<double> stat(5);
+    stat[0]=0;
+    stat[1]=0;
+    stat[2]=0;
+    stat[3]=0;
+    stat[4]=0;
+    q.prepare("SELECT remise FROM contrat WHERE remise<=10");
+    q.exec();
+    while (q.next())
+    {
+        stat[0]++;
+    }
+    q.prepare("SELECT remise FROM contrat WHERE 10<remise and remise<=20");
+    q.exec();
+    while (q.next())
+    {
+        stat[1]++;
+    }
+    q.prepare("SELECT remise FROM contrat WHERE 20<remise and remise<=30");
+    q.exec();
+    while (q.next())
+    {
+        stat[2]++;
+    }
+    q.prepare("SELECT remise FROM contrat WHERE 30<remise and remise<=40");
+    q.exec();
+    while (q.next())
+    {
+        stat[3]++;
+    }
+    q.prepare("SELECT remise FROM contrat WHERE 40<remise ");
+    q.exec();
+    while (q.next())
+    {
+        stat[4]++;
+    }
+    return stat;
+}
+void Gerer::makePlot_remise()
+{
+    // prepare data:
+    QVector<double> x3(5), y3(20);
+    for (int i=0; i<x3.size(); ++i)
+    {
+      x3[i] = i+1;
+
+    }
+    for (int i=0; i<y3.size(); ++i)
+    {
+      y3[i] = i+1;
+
+    }
+
+    QCPBars *bars1 = new QCPBars(ui->customPlot->xAxis, ui->customPlot->yAxis);
+    bars1->setWidth(2/(double)x3.size());
+    bars1->setData(x3, Gerer::Statistique_remise());
+    bars1->setPen(Qt::NoPen);
+    bars1->setBrush(QColor(200, 40, 60, 170));
+    ui->customPlot->replot();
+
+
+    // move bars above graphs and grid below bars:
+    ui->customPlot->addLayer("abovemain", ui->customPlot->layer("main"), QCustomPlot::limAbove);
+    ui->customPlot->addLayer("belowmain", ui->customPlot->layer("main"), QCustomPlot::limBelow);
+    ui->customPlot->xAxis->grid()->setLayer("belowmain");
+    ui->customPlot->yAxis->grid()->setLayer("belowmain");
+
+    // set some pens, brushes and backgrounds:
+    QVector<double> Ticks;
+    Ticks<<1<<2<<3<<4<<5<<6;
+    QVector<QString> labels;
+    labels<<"0-10"<<"10-20"<<"20-30"<<"30-40"<<"40-50";
+    QSharedPointer<QCPAxisTickerText> textTicker(new QCPAxisTickerText);
+    textTicker->addTicks(Ticks,labels);
+    ui->customPlot->xAxis->setTicker(textTicker);
+    ui->customPlot->xAxis->setSubTicks(false);
+    ui->customPlot->xAxis->setTickLength(0,4);
+    ui->customPlot->xAxis->setBasePen(QPen(Qt::white, 1));
+    ui->customPlot->yAxis->setBasePen(QPen(Qt::white, 1));
+    ui->customPlot->xAxis->setTickPen(QPen(Qt::transparent, 1));
+    ui->customPlot->yAxis->setTickPen(QPen(Qt::white, 1));
+    ui->customPlot->xAxis->setSubTickPen(QPen(Qt::transparent, 1));
+    ui->customPlot->yAxis->setSubTickPen(QPen(Qt::transparent, 1));
+    ui->customPlot->xAxis->setTickLabelColor(Qt::white);
+    ui->customPlot->yAxis->setTickLabelColor(Qt::white);
+    ui->customPlot->xAxis->grid()->setPen(QPen(QColor(140, 140, 140), 1, Qt::DotLine));
+    ui->customPlot->yAxis->grid()->setPen(QPen(QColor(140, 140, 140), 1, Qt::DotLine));
+    ui->customPlot->xAxis->grid()->setSubGridPen(QPen(QColor(80, 80, 80), 1, Qt::DotLine));
+    ui->customPlot->yAxis->grid()->setSubGridPen(QPen(QColor(80, 80, 80), 1, Qt::DotLine));
+    ui->customPlot->xAxis->grid()->setSubGridVisible(true);
+    ui->customPlot->yAxis->grid()->setSubGridVisible(true);
+    ui->customPlot->xAxis->grid()->setZeroLinePen(Qt::NoPen);
+    ui->customPlot->yAxis->grid()->setZeroLinePen(Qt::NoPen);
+    ui->customPlot->xAxis->setUpperEnding(QCPLineEnding::esSpikeArrow);
+    ui->customPlot->yAxis->setUpperEnding(QCPLineEnding::esSpikeArrow);
+    QLinearGradient plotGradient;
+    plotGradient.setStart(0, 0);
+    plotGradient.setFinalStop(0, 350);
+    plotGradient.setColorAt(0, QColor(10, 50, 80));
+    plotGradient.setColorAt(1, QColor(10, 20, 50));
+    ui->customPlot->setBackground(plotGradient);
+    QLinearGradient axisRectGradient;
+    axisRectGradient.setStart(0, 0);
+    axisRectGradient.setFinalStop(0, 350);
+    axisRectGradient.setColorAt(0, QColor(10, 50, 80));
+    axisRectGradient.setColorAt(1, QColor(0, 0, 30));
+    ui->customPlot->axisRect()->setBackground(axisRectGradient);
+
+    ui->customPlot->rescaleAxes();
+    ui->customPlot->xAxis->setRange(0, 7);
+    ui->customPlot->yAxis->setRange(0, 10);
+
+
+}
+
+void Gerer::on_pushButton_17_gc_clicked()
+{
+    Gerer::makePlot_remise();
+}
+
+void Gerer::on_pushButton_19_gc_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(1);
+
+}
+
+void Gerer::on_pushButton_3_gc_clicked()
+{
+    ui->tableView_2_gc->setSelectionBehavior(QAbstractItemView::SelectRows);
+    partenaire c;
+    c.ajouter(ui);
+    c.affichertable(ui);
+}
+
+void Gerer::on_tableView_2_gc_clicked(const QModelIndex &index)
+{
+    ui->lineEdit_gc->setText(ui->tableView_2_gc->model()->data(ui->tableView_2_gc->model()->index(ui->tableView_2_gc->selectionModel()->currentIndex().row(),0)).toString());
+            ui->lineEdit_4_gc->setText(ui->tableView_2_gc->model()->data(ui->tableView_2_gc->model()->index(ui->tableView_2_gc->selectionModel()->currentIndex().row(),1)).toString());
+            ui->lineEdit_3_gc->setText(ui->tableView_2_gc->model()->data(ui->tableView_2_gc->model()->index(ui->tableView_2_gc->selectionModel()->currentIndex().row(),2)).toString());
+            ui->lineEdit_2_gc->setText(ui->tableView_2_gc->model()->data(ui->tableView_2_gc->model()->index(ui->tableView_2_gc->selectionModel()->currentIndex().row(),3)).toString());
+            ui->lineEdit_5_gc->setText(ui->tableView_2_gc->model()->data(ui->tableView_2_gc->model()->index(ui->tableView_2_gc->selectionModel()->currentIndex().row(),4)).toString());
+            ui->lineEdit_6_gc->setText(ui->tableView_2_gc->model()->data(ui->tableView_2_gc->model()->index(ui->tableView_2_gc->selectionModel()->currentIndex().row(),5)).toString());
+
+
+}
+
+void Gerer::on_pushButton_4_gc_clicked()
+{
+    partenaire c;
+    c.modifier(ui);
+    c.affichertable(ui);
+}
+
+void Gerer::on_pushButton_11_gc_clicked()
+{
+    partenaire c;
+c.supprimer(ui);
+c.affichertable(ui);
+}
+
+void Gerer::on_pushButton_10_gc_clicked()
+{
+
+    QString valeur =ui->lineEdit_17_gc->text();
+    partenaire *e= new partenaire();
+    ui->tableView_2_gc->setModel(e->rechercherpartenaire(valeur));
+}
+
+void Gerer::on_pushButton_12_gc_clicked()
+{
+    partenaire *e = new partenaire();
+    ui->tableView_2_gc->setModel(e->trierpartenaire());
+}
+
+void Gerer::on_pushButton_5_gc_clicked()
+{        contrat *e = new contrat();
+         ui->tableView_gc->setModel(e->triercontrat_desc());//refresh .
+    }
+
+// ----------------- example of inharitance from PagePrepare ---------------------
+
+class PrintBorder : public PagePrepare
+{
+public:
+    virtual void preparePage(QPainter *painter);
+    static int pageNumber;
+};
+
+int PrintBorder::pageNumber = 0;
+
+void PrintBorder::preparePage(QPainter *painter)
+{ // print a border on each page
+    QRect rec = painter->viewport();
+    painter->setPen(QPen(QColor(0, 0, 0), 1));
+    painter->drawRect(rec);
+    painter->translate(10, painter->viewport().height() - 10);
+    painter->drawText(0, 0, QString("Page %1").arg(pageNumber));
+    pageNumber += 1;
+}
+
+// --------------------------------------------------------------------------------
+
+
+
+void Gerer::uglyPrint2(QPrinter *printer) {
+
+    // ---------------- death-to-designers example Event------------------
+
+    QPainter uglyPainter;
+    if(!uglyPainter.begin(printer)) {
+        qWarning() << "can't start printer";
+        return;
+    }
+    TablePrinter uglyTablePrinter(&uglyPainter, printer);
+    QVector<int> colStretch = QVector<int>() << 5 << 5 << 0 <<10 <<5;
+    uglyTablePrinter.setPen(QPen(QColor(0, 100, 255), 3, Qt::DotLine)); // pen for borders
+    uglyTablePrinter.setHeaderColor(Qt::red);
+    uglyTablePrinter.setContentColor(Qt::green);
+    QFont font1; // font for headers
+    font1.setBold(true);
+    QFont font2; // font for content
+    font2.setItalic(true);
+    uglyTablePrinter.setHeadersFont(font1);
+    uglyTablePrinter.setContentFont(font2);
+    PrintBorder *printB = new PrintBorder;
+    printB->pageNumber = 1;
+    uglyTablePrinter.setPagePrepare(printB);
+    QVector<QString> headers = QVector<QString>() << "id" << "nomp" << "duree" << "dater"<< "remise" ;
+
+    uglyPainter.setPen(QPen(Qt::yellow));
+    uglyPainter.drawText(uglyPainter.viewport().width()/2 - 40, 40, "TABLE contrat");
+    uglyPainter.translate(0, 60); // start print point
+    uglyTablePrinter.setCellMargin(10, 5, 5, 5);
+    uglyTablePrinter.setPageMargin(100, 40, 40, 40);
+    if(!uglyTablePrinter.printTable(ui->tableView_gc->model(), colStretch, headers)) {
+        qDebug() << uglyTablePrinter.lastError();
+    }
+    uglyPainter.end();
+    delete printB;
+}
+
+
+
+
+void Gerer::on_pushButton_20_gc_clicked()
+{
+    QPrintPreviewDialog dialog;
+    connect(&dialog, SIGNAL(paintRequested(QPrinter*)), this, SLOT(uglyPrint2(QPrinter*)));
+    dialog.exec();
+}
+

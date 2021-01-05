@@ -32,7 +32,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_clicked()
 {   Connection c;
 
-    QSqlQuery query(test_bd);
+   /* QSqlQuery query(test_bd);
     QString select = "SELECT UserName from LOGINS where UserName=? and Password=?";
     qDebug() << select;
     query.prepare(select);
@@ -72,8 +72,9 @@ void MainWindow::on_pushButton_clicked()
                c.fermerconnection();
 
         }
-    }
-
+    }*/
+    Gerer g ;
+g.exec();
   }
 
 
