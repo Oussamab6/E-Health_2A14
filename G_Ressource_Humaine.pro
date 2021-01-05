@@ -11,6 +11,8 @@ SOURCES += \
     EMPLOYE.cpp \
     arduino.cpp \
     connection.cpp \
+    don.cpp \
+    donneur.cpp \
     dossiermedical.cpp \
     gerer.cpp \
     machine.cpp \
@@ -24,6 +26,8 @@ HEADERS += \
     EMPLOYE.h \
     arduino.h \
     connection.h \
+    don.h \
+    donneur.h \
     dossiermedical.h \
     gerer.h \
     machine.h \

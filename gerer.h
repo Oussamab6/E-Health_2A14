@@ -11,8 +11,15 @@
 #include "dossiermedical.h"
 #include "medicaments.h"
 #include "machines.h"
-
-
+#include <QMainWindow>
+#include <QMessageBox>
+#include <QSqlTableModel>
+#include <QTextStream>
+#include <QPrinter>
+#include <QPrintDialog>
+#include <QTextDocument>
+#include "donneur.h"
+#include "don.h"
 
 namespace Ui {
 class Gerer;
@@ -125,6 +132,32 @@ private slots:
 
     void on_comboBox_reche_3_activated(const QString &arg1);
 
+    void on_pushButton_AjouterDonneur_clicked();
+
+    void on_pushButton_ModifierDonneur_clicked();
+
+    void on_pushButton_SupprimerDonneur_clicked();
+
+    void on_pushButton_ImprimerDonneur_clicked();
+
+    void on_pushButton_RechercherDonneur_clicked();
+
+    void on_pushButton_TrierDonneur_clicked();
+
+    void on_pushButton_statistique_clicked();
+
+    void on_pushButtonAjouterDon_clicked();
+
+    void on_pushButtonModifierDon_clicked();
+
+    void on_pushButtonSupprimerDon_clicked();
+
+    void on_pushButtonImprimerDon_clicked();
+
+    void on_pushButtonRechercheDon_clicked();
+
+    void on_pushButtonTrierDon_clicked();
+
 private:
     Ui::Gerer *ui;
     QPropertyAnimation* animation ;
@@ -136,6 +169,9 @@ private:
     arduino A;
     medicament m;
     machine e;
+    donneur tmpdonneur;
+    don tmpdon;
+
 
 };
 

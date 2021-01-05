@@ -9,6 +9,7 @@
 #include "EMPLOYE.h"
 #include"connection.h"
 
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -35,7 +36,6 @@ private:
     QSqlDatabase test_bd;
     QMediaPlayer* player;
     QPropertyAnimation* animation ;
-
 
 };
 #endif // MAINWINDOW_H
