@@ -9,7 +9,7 @@
 
 class donneur
 {
-    int cin;
+    QString cin;
     QString nom;
     QString prenom;
     QString email;
@@ -18,8 +18,8 @@ class donneur
     QDate dateprelev;
 public:
     donneur();
-    donneur(int,QString,QString,QString,QString,QString,QDate);
-    int get_cin(){return cin;}
+    donneur(QString,QString,QString,QString,QString,QString,QDate);
+    QString get_cin(){return cin;}
     QString get_nom(){return nom;}
     QString get_prenom(){return prenom;}
     QString get_email(){return email;}
@@ -43,6 +43,9 @@ public:
     QSqlQueryModel *rechercherNom(QString input);
     QSqlQueryModel *rechercherGroupeS(QString input);
     QSqlQueryModel *rechercherDate(QString input);
+    int stat1();
+    int stat2();
+    int stat3();
 };
 
 #endif // DONNEUR_H

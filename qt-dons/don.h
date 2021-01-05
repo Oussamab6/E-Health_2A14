@@ -38,6 +38,7 @@ public:
     QSqlQueryModel *rechercherDate(QString input);
 
 
+
 };
 
 #endif // DON_H

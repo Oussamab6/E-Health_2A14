@@ -24,11 +24,11 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButton_clicked();
+   // void on_pushButton_clicked();
 
-    void on_pushButton_6_clicked();
+  //  void on_pushButton_6_clicked();
 
-    void on_pushButton_5_clicked();
+  //  void on_pushButton_5_clicked();
 
     void on_pushButton_4_clicked();
 
@@ -47,6 +47,22 @@ private slots:
     void on_pushButtonTrierDon_clicked();
 
     void on_pushButton_3_clicked();
+
+    void on_pushButton_statistique_clicked();
+
+//    void on_Button_RechercheDonneur_clicked();
+
+    void on_pushButton_AjouterDonneur_clicked();
+
+    void on_pushButton_ModifierDonneur_clicked();
+
+    void on_pushButton_SupprimerDonneur_clicked();
+
+    void on_pushButton_RechercherDonneur_clicked();
+
+    void on_pushButton_TrierDonneur_clicked();
+
+    void on_pushButton_ImprimerDonneur_clicked();
 
 private:
     Ui::MainWindow *ui;

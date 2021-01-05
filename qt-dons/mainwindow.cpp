@@ -1,15 +1,28 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include<QTextDocument>
+#include <QDialog>
+#include<QFileInfo>
+#include<QFileDialog>
+#include <QTextStream>
+#include<QValidator>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+    //controle de saisie
     ui->setupUi(this);
-
-
+    QValidator *validator_String=new QRegExpValidator(QRegExp("[A-Za-z ' ']+"),this);
+    ui->cINLineEdit->setValidator(new QIntValidator(10000000,999999999,this));
     ui->cINLineEdit->setMaxLength(8);
-
+    ui->referenceLineEdit->setValidator(new QIntValidator (10000000,999999999,this));
+    ui->referenceLineEdit->setMaxLength(8);
+    ui->quantiteLineEdit->setValidator(new QIntValidator(10000,99999,this));
+    ui->nomLineEdit->setValidator(validator_String);
+    ui->prenomLineEdit->setValidator(validator_String);
+    QValidator *validator_Mail=new QRegExpValidator(QRegExp("[A-Za-z '@ ' '.']+"),this);
+    ui->eMailLineEdit->setValidator(validator_Mail);
 
 
     ui->tableView->setModel(tmpdonneur.afficher());
@@ -21,17 +34,10 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tableViewDon->setSelectionMode(QAbstractItemView::SingleSelection);
 }
 
-MainWindow::~MainWindow()
+// Ajouter donneur
+void MainWindow::on_pushButton_AjouterDonneur_clicked()
 {
-    delete ui;
-}
-
-
-void MainWindow::on_pushButton_clicked()
-{
-
-
-    int cin = ui->cINLineEdit->text().toInt();
+    QString cin = ui->cINLineEdit->text();
     QString nom= ui->nomLineEdit->text();
     QString prenom= ui->prenomLineEdit->text();
     QString email= ui->eMailLineEdit->text();
@@ -49,51 +55,55 @@ void MainWindow::on_pushButton_clicked()
         ui->tableView->setModel(tmpdonneur.afficher());
 
 
-
-
-
 }
 
-
-
-
-
-void MainWindow::on_pushButton_6_clicked()
+//Modifier Donneur
+void MainWindow::on_pushButton_ModifierDonneur_clicked()
 {
-    if (ui->pushButton_6->isChecked())
+    if (ui->pushButton_ModifierDonneur->isChecked())
     {
-        ui->pushButton_6->setDisabled(true);
-        ui->pushButton_6->setText("Modifiable");
+        ui->pushButton_ModifierDonneur->setDisabled(true);
+        ui->pushButton_ModifierDonneur->setText("Modifiable");
         QSqlTableModel *tableModel= new QSqlTableModel();
         tableModel->setTable("DONNEUR");
         tableModel->select();
         ui->tableView->setModel(tableModel);
-        ui->pushButton_6->setDisabled(false);
+        ui->pushButton_ModifierDonneur->setDisabled(false);
     }
     else
     {
-        ui->pushButton_6->setText("Modifier");
+        ui->pushButton_ModifierDonneur->setText("Modifier");
         ui->tableView->setModel(tmpdonneur.afficher());
-
-
     }
 }
 
-void MainWindow::on_pushButton_5_clicked()
-{
-    QItemSelectionModel *select = ui->tableView->selectionModel();
 
+//Supprimer Donneur
+void MainWindow::on_pushButton_SupprimerDonneur_clicked()
+{
+
+    QItemSelectionModel *select = ui->tableView->selectionModel();
+    QMessageBox msgbox;
     int cin =select->selectedRows(0).value(0).data().toInt();
+            msgbox.setWindowTitle("supprimer");
+            msgbox.setText("voulez_vous supprimer cette réclamation?");
+            msgbox.setStandardButtons(QMessageBox ::Yes);
+            msgbox.addButton(QMessageBox::No);
+            if(msgbox.exec()==QMessageBox::Yes)
+{
 
     if(tmpdonneur.supprimer(cin))
     {
+        QMessageBox::information(nullptr,QObject::tr("OK"),QObject::tr("suppression effectuée \n click cancel to exit."), QMessageBox::Cancel);
         ui->tableView->setModel(tmpdonneur.afficher());
         ui->statusbar->showMessage("Donneur supprimé");
     }
 
 }
+}
 
-void MainWindow::on_pushButton_4_clicked()
+//imrpimer donneur
+void MainWindow::on_pushButton_ImprimerDonneur_clicked()
 {
     QString strStream;
     QTextStream out(&strStream);
@@ -144,7 +154,21 @@ void MainWindow::on_pushButton_4_clicked()
     delete document;
 }
 
-void MainWindow::on_pushButton_7_clicked()
+//Recherche Donneur
+void MainWindow::on_pushButton_RechercherDonneur_clicked()
+{
+    QString input=ui->lineEditRdonneur->text();
+    if (ui->checkBox_nom->isChecked() && !ui->checkBox_type->isChecked() && !ui->checkBox_date->isChecked())
+        ui->tableView->setModel(tmpdonneur.rechercherNom(input));
+    else if (!ui->checkBox_nom->isChecked() && ui->checkBox_type->isChecked() && !ui->checkBox_date->isChecked())
+        ui->tableView->setModel(tmpdonneur.rechercherGroupeS(input));
+    else if (!ui->checkBox_nom->isChecked() && !ui->checkBox_type->isChecked() && ui->checkBox_date->isChecked())
+        ui->tableView->setModel(tmpdonneur.rechercherDate(input));
+}
+
+
+//Trier Donneur
+void MainWindow::on_pushButton_TrierDonneur_clicked()
 {
 
 
@@ -165,7 +189,7 @@ void MainWindow::on_pushButton_7_clicked()
 
 }
 
-//don fonctions
+// Ajouter Don
 void MainWindow::on_pushButtonAjouterDon_clicked()
 {
     int id=ui->referenceLineEdit->text().toInt();
@@ -184,6 +208,7 @@ void MainWindow::on_pushButtonAjouterDon_clicked()
     }
 }
 
+//Modifier Don
 void MainWindow::on_pushButtonModifierDon_clicked()
 {
     if (ui->pushButtonModifierDon->isChecked())
@@ -205,6 +230,7 @@ void MainWindow::on_pushButtonModifierDon_clicked()
 
 }
 
+//Supprimer Don
 void MainWindow::on_pushButtonSupprimerDon_clicked()
 {
     QItemSelectionModel *select = ui->tableViewDon->selectionModel();
@@ -219,6 +245,7 @@ void MainWindow::on_pushButtonSupprimerDon_clicked()
 
 }
 
+//Imprimer Don
 void MainWindow::on_pushButtonImprimerDon_clicked()
 {
     QString strStream;
@@ -270,6 +297,7 @@ void MainWindow::on_pushButtonImprimerDon_clicked()
     delete document;
 }
 
+//Recherche don
 void MainWindow::on_pushButtonRechercheDon_clicked()
 {
     QString recherche=ui->lineEditRechercheDon->text();
@@ -285,11 +313,9 @@ void MainWindow::on_pushButtonRechercheDon_clicked()
     }
     else if (!ui->checkBoxRefDon->isChecked() && !ui->checkBoxQuantiteDon->isChecked() && ui->checkBoxDateDon->isChecked())
         ui->tableViewDon->setModel(tmpdon.rechercherDate(recherche));
-
-
-
 }
 
+//Trier Don
 void MainWindow::on_pushButtonTrierDon_clicked()
 {
     if (ui->checkBoxRefDon->isChecked() && !ui->checkBoxQuantiteDon->isChecked() && !ui->checkBoxDateDon->isChecked())
@@ -308,13 +334,29 @@ void MainWindow::on_pushButtonTrierDon_clicked()
         ui->tableViewDon->setModel(tmpdon.trier("ID_DON,QUANTITE,DATE_PRELEV",ui->comboBoxDon->currentText()));
 }
 
-void MainWindow::on_pushButton_3_clicked()
+
+void MainWindow::on_pushButton_statistique_clicked()
 {
-    QString input=ui->lineEditRdonneur->text();
-    if (ui->checkBox_nom->isChecked() && !ui->checkBox_type->isChecked() && !ui->checkBox_date->isChecked())
-        ui->tableView->setModel(tmpdonneur.rechercherNom(input));
-    else if (!ui->checkBox_nom->isChecked() && ui->checkBox_type->isChecked() && !ui->checkBox_date->isChecked())
-        ui->tableView->setModel(tmpdonneur.rechercherGroupeS(input));
-    else if (!ui->checkBox_nom->isChecked() && !ui->checkBox_type->isChecked() && ui->checkBox_date->isChecked())
-        ui->tableView->setModel(tmpdonneur.rechercherDate(input));
+    float s;
+    donneur d;
+    s=d.stat1();
+    ui->lab_stat1->setNum(s);
+    float s1;
+    s1=d.stat2();
+    ui->lab_stat2->setNum(s1);
+    float s2;
+    s2=d.stat3();
+    ui->lab_stat3->setNum(s2);
 }
+
+
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
+
+
+
+

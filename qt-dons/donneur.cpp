@@ -4,7 +4,7 @@ donneur::donneur()
 {
 
 }
-donneur::donneur (int c,QString n, QString p,QString e, QString s,QString gs,QDate dp):cin(c),nom(n),prenom(p),email(e),sexe(s),groupesanguin(gs),dateprelev(dp)
+donneur::donneur (QString c,QString n, QString p,QString e, QString s,QString gs,QDate dp):cin(c),nom(n),prenom(p),email(e),sexe(s),groupesanguin(gs),dateprelev(dp)
 {
 
 }
@@ -12,7 +12,7 @@ bool donneur::ajouter()
 {
     QSqlQuery query;
 
-    QString res= QString::number(cin);
+    QString res= cin;
 
     query.prepare("INSERT INTO DONNEUR (CIN, NOM, PRENOM, EMAIL, SEXE, GROUPE_SANGUIN,DATE_PRELEV)"
                   "VALUES (:CIN, :NOM, :PRENOM, :EMAIL, :SEXE, :GROUPE_SANGUIN, :DATE_PRELEV)");
@@ -127,4 +127,50 @@ QSqlQueryModel *donneur::rechercherDate(QString input)
 
 
     return model;
+}
+int donneur::stat1()
+{
+    QSqlQuery query;
+        int count=0 ;
+        QSqlQuery requete("select * from DONNEUR where GROUPE_SANGUIN ='A+'") ;
+        while(requete.next())
+
+        {
+                count++ ;
+        }
+
+    return(count);
+
+
+}
+int donneur::stat2()
+{
+    QSqlQuery query;
+        int count=0 ;
+        QSqlQuery requete("select * from DONNEUR where GROUPE_SANGUIN ='AB+'") ;
+        while(requete.next())
+
+        {
+                count++ ;
+        }
+
+    return(count);
+
+
+}
+
+int donneur::stat3()
+{
+    QSqlQuery query;
+        int count=0 ;
+        QSqlQuery requete("select * from DONNEUR where GROUPE_SANGUIN ='O+'") ;
+        while(requete.next())
+
+        {
+                count++ ;
+        }
+
+    return(count);
+
+
 }

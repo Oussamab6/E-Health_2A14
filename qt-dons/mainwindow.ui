@@ -21,11 +21,11 @@
        <string notr="true">background-color: rgb(85, 170, 255);</string>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
-        <string>Tab 1</string>
+        <string>Tableau des donneurs</string>
        </attribute>
        <widget class="QGroupBox" name="groupBox_2">
         <property name="geometry">
@@ -204,7 +204,7 @@ border-top-color: rgb(0, 0, 0);</string>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton">
+            <widget class="QPushButton" name="pushButton_AjouterDonneur">
              <property name="text">
               <string>Ajouter</string>
              </property>
@@ -260,14 +260,14 @@ border-top-color: rgb(0, 0, 0);</string>
             <widget class="QLineEdit" name="lineEditRdonneur"/>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_3">
+            <widget class="QPushButton" name="pushButton_RechercherDonneur">
              <property name="text">
               <string>Rechercher</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_7">
+            <widget class="QPushButton" name="pushButton_TrierDonneur">
              <property name="text">
               <string>Trier</string>
              </property>
@@ -344,9 +344,37 @@ border-top-color: rgb(0, 0, 0);</string>
           </layout>
          </item>
          <item>
+          <widget class="QPushButton" name="pushButton_statistique">
+           <property name="text">
+            <string>Statistique</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="lab_stat1">
+           <property name="text">
+            <string>A+</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="lab_stat2">
+           <property name="text">
+            <string>AB+</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="lab_stat3">
+           <property name="text">
+            <string>O+</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <layout class="QHBoxLayout" name="horizontalLayout_5">
            <item>
-            <widget class="QPushButton" name="pushButton_6">
+            <widget class="QPushButton" name="pushButton_ModifierDonneur">
              <property name="text">
               <string>Modifier</string>
              </property>
@@ -356,14 +384,14 @@ border-top-color: rgb(0, 0, 0);</string>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_5">
+            <widget class="QPushButton" name="pushButton_SupprimerDonneur">
              <property name="text">
               <string>Supprimer</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_4">
+            <widget class="QPushButton" name="pushButton_ImprimerDonneur">
              <property name="text">
               <string>Imprimer</string>
              </property>
@@ -376,7 +404,7 @@ border-top-color: rgb(0, 0, 0);</string>
       </widget>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
-        <string>Tab 2</string>
+        <string>Tableau de dons</string>
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_10">
         <item>
