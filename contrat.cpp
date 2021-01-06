@@ -22,7 +22,7 @@ contrat::contrat(int id,QString nomp,QString duree,QString dater,int remise)
     this->remise=remise;
 
 }
-bool contrat::ajouter(Ui::Gerer *ui)
+bool contrat::ajouter(Ui::health *ui)
 {
     QSqlQuery q;
 
@@ -53,7 +53,7 @@ bool contrat::ajouter(Ui::Gerer *ui)
                     return false;
         }
 }
-bool contrat::modifier(Ui::Gerer *ui)
+bool contrat::modifier(Ui::health *ui)
 {
 
     QSqlQuery q;
@@ -85,7 +85,7 @@ bool contrat::modifier(Ui::Gerer *ui)
         }
 }
 }
-bool contrat::supprimer(Ui::Gerer *ui)
+bool contrat::supprimer(Ui::health *ui)
 {
     QSqlQuery q;
 
@@ -110,7 +110,7 @@ bool contrat::supprimer(Ui::Gerer *ui)
 }
 }
 
-void contrat::afficher(Ui::Gerer *ui)
+void contrat::afficher(Ui::health *ui)
 {
     QSqlQuery q,k;
     q.prepare("select * from contrat WHERE id ='"+ui->tableView_gc->model()->data(ui->tableView_gc->model()->index(ui->tableView_gc->selectionModel()->currentIndex().row(),0)).toString()+"'");
@@ -124,7 +124,7 @@ void contrat::afficher(Ui::Gerer *ui)
     ui->lineEdit_22_gc->setText(q.value(5).toString());
 
 }
-void contrat::affichertable(Ui::Gerer *ui)
+void contrat::affichertable(Ui::health *ui)
 {
     QSqlQuery q;
     QSqlQueryModel *modal=new QSqlQueryModel();
@@ -133,7 +133,7 @@ void contrat::affichertable(Ui::Gerer *ui)
     modal->setQuery(q);
     ui->tableView_gc->setModel(modal);
 }
-void contrat::Tri_Prix(Ui::Gerer *ui)
+void contrat::Tri_Prix(Ui::health *ui)
 {
     QSqlQuery q;
     QSqlQueryModel *model=new QSqlQueryModel();

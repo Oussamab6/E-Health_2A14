@@ -24,7 +24,7 @@ partenaire::partenaire(int cin,QString nom,QString prenom,int numtel,QString adr
     this->id=id;
 
 }
-bool partenaire::ajouter(Ui::Gerer *ui)
+bool partenaire::ajouter(Ui::health *ui)
 {
     QSqlQuery q;
 
@@ -56,7 +56,7 @@ bool partenaire::ajouter(Ui::Gerer *ui)
                     return false;
         }
 }
-bool partenaire::modifier(Ui::Gerer *ui)
+bool partenaire::modifier(Ui::health *ui)
 {
 
     QSqlQuery q;
@@ -90,7 +90,7 @@ bool partenaire::modifier(Ui::Gerer *ui)
         }
   }
 }
-bool partenaire::supprimer(Ui::Gerer *ui)
+bool partenaire::supprimer(Ui::health *ui)
 {
     QSqlQuery q;
 
@@ -115,7 +115,7 @@ bool partenaire::supprimer(Ui::Gerer *ui)
 }
 }
 
-void partenaire::afficher(Ui::Gerer *ui)
+void partenaire::afficher(Ui::health *ui)
 {
     QSqlQuery q,k;
     q.prepare("select * from partenaire WHERE id ='"+ui->tableView_2_gc->model()->data(ui->tableView_2_gc->model()->index(ui->tableView_2_gc->selectionModel()->currentIndex().row(),5)).toString()+"'");
@@ -131,7 +131,7 @@ void partenaire::afficher(Ui::Gerer *ui)
 
 
 }
-void partenaire::affichertable(Ui::Gerer *ui)
+void partenaire::affichertable(Ui::health *ui)
 {
     QSqlQuery q;
     QSqlQueryModel *modal=new QSqlQueryModel();
@@ -140,7 +140,7 @@ void partenaire::affichertable(Ui::Gerer *ui)
     modal->setQuery(q);
     ui->tableView_2_gc->setModel(modal);
 }
-void partenaire::Tri_partenaire(Ui::Gerer *ui)
+void partenaire::Tri_partenaire(Ui::health *ui)
 {
     QSqlQuery q;
     QSqlQueryModel *model=new QSqlQueryModel();

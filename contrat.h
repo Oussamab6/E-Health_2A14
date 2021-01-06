@@ -3,11 +3,11 @@
 
 #include <QString>
 #include <iostream>
-#include "gerer.h"
-#include "ui_gerer.h"
+#include "health.h"
+#include "ui_health.h"
 #include <QtSql/QSqlQueryModel>
 class contrat
-{  
+{
 private:
     int id;
     QString nomp;
@@ -17,12 +17,12 @@ private:
 public:
     contrat();
     contrat(int,QString,QString,QString,int);
-    bool ajouter(Ui::Gerer*ui);
-    bool modifier(Ui::Gerer*ui);
-    bool supprimer (Ui::Gerer*ui);
-    void afficher(Ui::Gerer*ui);
-    void affichertable(Ui::Gerer*ui);
-    void Tri_Prix(Ui::Gerer *ui);
+    bool ajouter(Ui::health*ui);
+    bool modifier(Ui::health*ui);
+    bool supprimer (Ui::health*ui);
+    void afficher(Ui::health*ui);
+    void affichertable(Ui::health*ui);
+    void Tri_Prix(Ui::health *ui);
     QSqlQueryModel *triercontrat();
     QSqlQueryModel *triercontrat_desc();
     QSqlQueryModel *recherchercontrat(QString id);

@@ -15,7 +15,7 @@ SOURCES += \
     don.cpp \
     donneur.cpp \
     dossiermedical.cpp \
-    gerer.cpp \
+    health.cpp \
     machine.cpp \
  main.cpp \
     mainwindow.cpp \
@@ -34,7 +34,7 @@ HEADERS += \
     don.h \
     donneur.h \
     dossiermedical.h \
-    gerer.h \
+    health.h \
     machine.h \
     mainwindow.h \
     medicaments.h \
@@ -45,7 +45,7 @@ HEADERS += \
     tache.h
 
 FORMS += \
-    gerer.ui \
+    health.ui \
     mainwindow.ui
 
 # Default rules for deployment.

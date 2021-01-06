@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "gerer.h"
+#include "health.h"
 #include "connection.h"
 #include<QThread>
 #include "arduinoo.h"
@@ -32,7 +32,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_clicked()
 {   Connection c;
 
-   /* QSqlQuery query(test_bd);
+   QSqlQuery query(test_bd);
     QString select = "SELECT UserName from LOGINS where UserName=? and Password=?";
     qDebug() << select;
     query.prepare(select);
@@ -58,9 +58,9 @@ void MainWindow::on_pushButton_clicked()
             player->setMedia(QUrl::fromLocalFile("C:\\Users\\iTech\\Desktop\\QT validation finale\\G_Ressource_Humaine\\click-sound.mp3"));
             player->play();
             qDebug()<< player->errorString();
-            Gerer g ;
+           health h;
 
-            g.exec();
+            h.exec();
         }
 
          else if (count<1)
@@ -72,9 +72,8 @@ void MainWindow::on_pushButton_clicked()
                c.fermerconnection();
 
         }
-    }*/
-    Gerer g ;
-g.exec();
+    }
+
   }
 
 
