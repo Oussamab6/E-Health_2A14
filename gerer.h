@@ -69,6 +69,8 @@ private slots:
 
     void on_font_clicked();
 
+    void on_pushButton_9_clicked();
+
 private:
     Ui::Gerer *ui;
     QPropertyAnimation* animation ;

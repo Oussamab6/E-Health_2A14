@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.13.2, 2021-01-04T00:11:32. -->
+<!-- Written by QtCreator 4.13.2, 2021-01-06T21:47:54. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -325,9 +325,9 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">G_Ressource_Humaine2</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/iTech/Desktop/QT validation finale/G_Ressource_Humaine/G_Ressource_Humaine.pro</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/iTech/Desktop/QT validation finale/G_Ressource_Humaine/G_Ressource_Humaine.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">G_Ressource_Humaine22</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/iTech/Desktop/QT validation finale/G_Ressource_Humaine/G_Ressource_Humaine2.pro</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/iTech/Desktop/QT validation finale/G_Ressource_Humaine/G_Ressource_Humaine2.pro</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>

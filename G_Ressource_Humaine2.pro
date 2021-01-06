@@ -10,6 +10,7 @@ CONFIG += c++11
 SOURCES += \
     EMPLOYE.cpp \
     arduino.cpp \
+    calculatrice.cpp \
     connection.cpp \
     gerer.cpp \
     main.cpp \
@@ -19,12 +20,14 @@ SOURCES += \
 HEADERS += \
     EMPLOYE.h \
     arduino.h \
+    calculatrice.h \
     connection.h \
     gerer.h \
     mainwindow.h \
     tache.h
 
 FORMS += \
+    calculatrice.ui \
     gerer.ui \
     mainwindow.ui
 

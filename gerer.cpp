@@ -24,7 +24,8 @@
 #include <QFontDialog>
 //#include "arduinoo.h"
 //#include "arduino_final.h"
-
+#include "calculatrice.h"
+#include "ui_calculatrice.h"
 
 
 
@@ -598,4 +599,10 @@ void Gerer::on_font_clicked()
     } else {
 
     }
+}
+
+void Gerer::on_pushButton_9_clicked()
+{
+    calculatrice c ;
+    c.exec();
 }

@@ -11,13 +11,14 @@ int main(int argc, char *argv[])
     Connection c ;
     QTranslator t;
     QStringList languages ;
-    languages << "ARABIC";
+    languages << "ARABIC"<<"french";
     QString lang = QInputDialog::getItem(NULL,"SELECTIONNER VOTRE LANGUE",
                                          "LANGUE",languages);
     if ( lang =="ARABIC")
     {
         t.load(":/arabic.qm");
     }
+
     if ( lang != "french")
     {
         a.installTranslator(&t);
