@@ -1,4 +1,4 @@
-QT       += core gui multimedia sql printsupport serialport
+QT       += core gui multimedia sql printsupport serialport network
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
@@ -8,6 +8,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    DuMesengerConnectionDialog.cpp \
     EMPLOYE.cpp \
     arduino.cpp \
     connection.cpp \
@@ -24,9 +25,11 @@ SOURCES += \
     patient.cpp \
     qcustomplot.cpp \
     tableprinter.cpp \
-    tache.cpp
+    tache.cpp \
+    widget.cpp
 
 HEADERS += \
+    DuMesengerConnectionDialog.h \
     EMPLOYE.h \
     arduino.h \
     connection.h \
@@ -42,11 +45,16 @@ HEADERS += \
     patient.h \
     qcustomplot.h \
     tableprinter.h \
-    tache.h
+    tache.h \
+    widget.h
 
 FORMS += \
+    DuMesengerConnectionDialog.ui \
     health.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    widget.ui
+
+QMAKE_CXXFLAGS += -std=gnu++11
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

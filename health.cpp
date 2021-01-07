@@ -30,16 +30,19 @@
 #include "partenaire.h"
 #include "tableprinter.h"
 
-
 //#include "arduinoo.h"
 //#include "arduino_final.h"
 
 #include "medicaments.h"
 
 #include "machine.h"
+#include "widget.h"
+
+#include "DuMesengerConnectionDialog.h"
 
 
 
+using namespace DuarteCorporation;
 
 health::health(QWidget *parent) :
     QDialog(parent),
@@ -117,6 +120,7 @@ health::health(QWidget *parent) :
    // ui->tableView->setModel(tmpcontrat.affichertable());
     model = new QSqlTableModel;
     model->select();
+
 }
 
 health::~health()
@@ -236,8 +240,8 @@ void health::on_tableView_em_activated(const QModelIndex &index)
 
 void health::on_pushButton_2_clicked()
 {
-   /* MainWindow M ;
-    M.exec();*/
+    widget w1;
+    w1.exec();
 
 }
 

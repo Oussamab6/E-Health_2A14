@@ -4,12 +4,17 @@
 #include <QApplication>
 #include <QTranslator>
 #include<QInputDialog>
+#include "DuMesengerConnectionDialog.h"
+#include "widget.h"
 
+using namespace DuarteCorporation;
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    a.setStyle("fusion");
     MainWindow w;
-    Connection c ;
+
+   Connection c ;
     QTranslator t;
        QStringList languages ;
        languages << "ARABIC"<<"FRENCH"<<"ENGLISH";

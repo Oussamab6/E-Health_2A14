@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="page">
     <widget class="QPushButton" name="pushButton_em">
@@ -1097,6 +1097,19 @@ color: rgb(255, 0, 0);</string>
        </property>
        <property name="text">
         <string>Retour</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="pushButton_2">
+       <property name="geometry">
+        <rect>
+         <x>120</x>
+         <y>300</y>
+         <width>75</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Messenger</string>
        </property>
       </widget>
      </widget>

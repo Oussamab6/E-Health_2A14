@@ -22,6 +22,7 @@
 #include "donneur.h"
 #include "don.h"
 
+
 namespace Ui {
 class health;
 }
@@ -292,6 +293,7 @@ private:
     QString ansNombre;
     enum Actions {diviser, multiplier, additionner, soustraire};
     Actions action;
+
 };
 
 #endif // HEALTH_H
