@@ -63,6 +63,16 @@
      </item>
      <item>
       <widget class="QPushButton" name="ok">
+       <property name="styleSheet">
+        <string notr="true">background-color: red;
+    border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: beige;
+    font: bold 14px;
+    min-width: 6em;
+    padding: 4;</string>
+       </property>
        <property name="text">
         <string>Accepter </string>
        </property>
@@ -70,6 +80,16 @@
      </item>
      <item>
       <widget class="QPushButton" name="cancel">
+       <property name="styleSheet">
+        <string notr="true">background-color: red;
+    border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: beige;
+    font: bold 14px;
+    min-width: 6em;
+    padding: 4;</string>
+       </property>
        <property name="text">
         <string>Annuler</string>
        </property>

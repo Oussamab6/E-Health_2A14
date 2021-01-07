@@ -29,15 +29,9 @@
 #include "qcustomplot.h"
 #include "partenaire.h"
 #include "tableprinter.h"
-
-//#include "arduinoo.h"
-//#include "arduino_final.h"
-
 #include "medicaments.h"
-
 #include "machine.h"
 #include "widget.h"
-
 #include "DuMesengerConnectionDialog.h"
 
 
@@ -59,11 +53,8 @@ health::health(QWidget *parent) :
         break;
     case(-1):qDebug()<<"arduino is not available ";
         break;
-
     }
     QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(detction_de_chaleur()));
-
-
     //*****************************************************************
     EMPLOYE e;
     ui->tableView_em->setModel(e.afficher());
@@ -76,14 +67,12 @@ health::health(QWidget *parent) :
     ui->tableView->setModel(m.afficher());
     machine a;
      ui->tableView_3->setModel(a.afficher());
-
     //l'animation pour "Bienvenue"
     animation= new QPropertyAnimation(ui->label_7, "geometry");
     animation->setDuration(3000);
     animation->setStartValue(ui->label_7->geometry());
     animation->setEndValue(QRect(200,100,300,100));
     animation->start();
-
     //l'animation pour "choisir votre choix SVP"
     /*animation= new QPropertyAnimation(ui->label_11, "geometry");
     animation->setDuration(3000);

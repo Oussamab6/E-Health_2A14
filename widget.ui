@@ -45,6 +45,16 @@
      </item>
      <item>
       <widget class="QPushButton" name="send">
+       <property name="styleSheet">
+        <string notr="true">background-color: red;
+    border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: beige;
+    font: bold 14px;
+    min-width: 6em;
+    padding: 4;</string>
+       </property>
        <property name="text">
         <string>Envoyer </string>
        </property>
@@ -52,6 +62,16 @@
      </item>
      <item>
       <widget class="QPushButton" name="bind">
+       <property name="styleSheet">
+        <string notr="true">background-color: red;
+    border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: beige;
+    font: bold 14px;
+    min-width: 6em;
+    padding: 4;</string>
+       </property>
        <property name="text">
         <string>Connecter </string>
        </property>
