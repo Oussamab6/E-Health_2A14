@@ -3,8 +3,6 @@
 
 #include "patient.h"
 #include "dossiermedical.h"
-#include "gerer.h"
-#include "ui_gerer.h"
 #include<QString>
 #include<QThread>
 #include <QMessageBox>
@@ -592,6 +590,128 @@ void health::on_lineEdit_cursorPositionChanged(int arg1, int arg2)
     QString inputValue,filtrerChecked;
             inputValue=ui->lineEdit->text();
             ui->tableView_em->setModel(ee.rechercher_2(inputValue,"nom"));
+}
+
+void health::on_pushButton_statis_clicked()
+{
+    health::makePlot_Salaire();
+
+}
+QVector<double> health::Statistique_Salaire()
+{
+    QSqlQuery q;
+    QVector<double> stat(5);
+    stat[0]=0;
+    stat[1]=0;
+    stat[2]=0;
+    stat[3]=0;
+    stat[4]=0;
+    q.prepare("SELECT salaire FROM tache WHERE salaire<=10");
+    q.exec();
+    while (q.next())
+    {
+        stat[0]++;
+    }
+    q.prepare("SELECT salaire FROM tache WHERE 10<salaire and salaire<=20");
+    q.exec();
+    while (q.next())
+    {
+        stat[1]++;
+    }
+    q.prepare("SELECT salaire FROM tache WHERE 20<salaire and salaire<=30");
+    q.exec();
+    while (q.next())
+    {
+        stat[2]++;
+    }
+    q.prepare("SELECT salaire FROM tache WHERE 30<salaire and salaire<=40");
+    q.exec();
+    while (q.next())
+    {
+        stat[3]++;
+    }
+    q.prepare("SELECT salaire FROM tache WHERE 40<salaire ");
+    q.exec();
+    while (q.next())
+    {
+        stat[4]++;
+    }
+    return stat;
+}
+void health::makePlot_Salaire()
+{
+    QVector<double> x3(5), y3(20);
+    for (int i=0; i<x3.size(); ++i)
+    {
+      x3[i] = i+1;
+
+    }
+    for (int i=0; i<y3.size(); ++i)
+    {
+      y3[i] = i+1;
+
+    }
+
+    QCPBars *bars1 = new QCPBars(ui->customPlot2->xAxis, ui->customPlot2->yAxis);
+    bars1->setWidth(2/(double)x3.size());
+    bars1->setData(x3, health::Statistique_Salaire());
+    bars1->setPen(Qt::NoPen);
+    bars1->setBrush(QColor(200, 40, 60, 170));
+    ui->customPlot2->replot();
+
+
+    // move bars above graphs and grid below bars:
+    ui->customPlot2->addLayer("abovemain", ui->customPlot2->layer("main"), QCustomPlot::limAbove);
+    ui->customPlot2->addLayer("belowmain", ui->customPlot2->layer("main"), QCustomPlot::limBelow);
+    ui->customPlot2->xAxis->grid()->setLayer("belowmain");
+    ui->customPlot2->yAxis->grid()->setLayer("belowmain");
+
+    // set some pens, brushes and backgrounds:
+    QVector<double> Ticks;
+    Ticks<<1<<2<<3<<4<<5<<6;
+    QVector<QString> labels;
+    labels<<"0-10"<<"10-20"<<"20-30"<<"30-40"<<"40-50";
+    QSharedPointer<QCPAxisTickerText> textTicker(new QCPAxisTickerText);
+    textTicker->addTicks(Ticks,labels);
+    ui->customPlot2->xAxis->setTicker(textTicker);
+    ui->customPlot2->xAxis->setSubTicks(false);
+    ui->customPlot2->xAxis->setTickLength(0,4);
+    ui->customPlot2->xAxis->setBasePen(QPen(Qt::white, 1));
+    ui->customPlot2->yAxis->setBasePen(QPen(Qt::white, 1));
+    ui->customPlot2->xAxis->setTickPen(QPen(Qt::transparent, 1));
+    ui->customPlot2->yAxis->setTickPen(QPen(Qt::white, 1));
+    ui->customPlot2->xAxis->setSubTickPen(QPen(Qt::transparent, 1));
+    ui->customPlot2->yAxis->setSubTickPen(QPen(Qt::transparent, 1));
+    ui->customPlot2->xAxis->setTickLabelColor(Qt::white);
+    ui->customPlot2->yAxis->setTickLabelColor(Qt::white);
+    ui->customPlot2->xAxis->grid()->setPen(QPen(QColor(140, 140, 140), 1, Qt::DotLine));
+    ui->customPlot2->yAxis->grid()->setPen(QPen(QColor(140, 140, 140), 1, Qt::DotLine));
+    ui->customPlot2->xAxis->grid()->setSubGridPen(QPen(QColor(80, 80, 80), 1, Qt::DotLine));
+    ui->customPlot2->yAxis->grid()->setSubGridPen(QPen(QColor(80, 80, 80), 1, Qt::DotLine));
+    ui->customPlot2->xAxis->grid()->setSubGridVisible(true);
+    ui->customPlot2->yAxis->grid()->setSubGridVisible(true);
+    ui->customPlot2->xAxis->grid()->setZeroLinePen(Qt::NoPen);
+    ui->customPlot2->yAxis->grid()->setZeroLinePen(Qt::NoPen);
+    ui->customPlot2->xAxis->setUpperEnding(QCPLineEnding::esSpikeArrow);
+    ui->customPlot2->yAxis->setUpperEnding(QCPLineEnding::esSpikeArrow);
+    QLinearGradient plotGradient;
+    plotGradient.setStart(0, 0);
+    plotGradient.setFinalStop(0, 350);
+    plotGradient.setColorAt(0, QColor(10, 50, 80));
+    plotGradient.setColorAt(1, QColor(10, 20, 50));
+    ui->customPlot2->setBackground(plotGradient);
+    QLinearGradient axisRectGradient;
+    axisRectGradient.setStart(0, 0);
+    axisRectGradient.setFinalStop(0, 350);
+    axisRectGradient.setColorAt(0, QColor(10, 50, 80));
+    axisRectGradient.setColorAt(1, QColor(0, 0, 30));
+    ui->customPlot2->axisRect()->setBackground(axisRectGradient);
+
+    ui->customPlot2->rescaleAxes();
+    ui->customPlot2->xAxis->setRange(0, 7);
+    ui->customPlot2->yAxis->setRange(0, 10);
+
+
 }
 void health::detction_de_chaleur()
 {
@@ -2042,5 +2162,221 @@ void health::on_pushButton_ret11_clicked()
     ui->stackedWidget_2->setCurrentIndex(0);
 
 }
+void health::on_pushButton_ret15_clicked()
+{
+    ui->stackedWidget_2->setCurrentIndex(2);
+
+}
+void health::on_pushButton_ret200_clicked()
+{
+    ui->stackedWidget_2->setCurrentIndex(2);
+
+}
+void health::on_pushButton_salaire_clicked()
+{
+    ui->stackedWidget_2->setCurrentIndex(12);
+
+}
+
+
+void health::on_pushButton_calculer_clicked()
+{
+    ui->stackedWidget_2->setCurrentIndex(11);
+
+}
+void health::on_calculBouton_clicked()
+{
+    float nbr2, calculNbr;
+    nbr2 = ui->resultLine->text().toFloat();
+    if(action == diviser) {
+        if(nbr2 != 0) {
+            calculNbr = premierNombre / nbr2;
+        } else {
+            calculNbr = 0;
+            QMessageBox::critical(this, "Calculatrice - sKy", "Math Error! (x/0)");
+        }
+    } else if (action == additionner) {
+        calculNbr = premierNombre + nbr2;
+    } else if (action == multiplier) {
+        calculNbr = premierNombre * nbr2;
+    } else if (action == soustraire) {
+        calculNbr = premierNombre - nbr2;
+    }
+    ui->resultLine->setText(QString::number(calculNbr));
+    ansNombre = QString::number(calculNbr);
+    premierNombre = 0;
+}
+
+void health::on_diviserBouton_clicked()
+{
+    if(ui->resultLine->text() != "0") {
+        premierNombre = ui->resultLine->text().toFloat();
+        action = diviser;
+        ui->resultLine->setText("0");
+    }
+}
+
+void health::on_additionnerBouton_clicked()
+{
+    if(ui->resultLine->text() != "0") {
+        premierNombre =ui->resultLine->text().toFloat();
+        action = additionner;
+        ui->resultLine->setText("0");
+    }
+}
+
+void health::on_multiplierBouton_clicked()
+{
+    if(ui->resultLine->text() != "0") {
+        premierNombre = ui->resultLine->text().toFloat();
+        action = multiplier;
+        ui->resultLine->setText("0");
+    }
+}
+
+void health::on_soustraireBouton_clicked()
+{
+    if(ui->resultLine->text() != "0") {
+        premierNombre = ui->resultLine->text().toFloat();
+        action = soustraire;
+        ui->resultLine->setText("0");
+    }
+}
+
+void health::on_number0_clicked()
+{
+    if(ui->resultLine->text() == "0") {
+        ui->resultLine->setText("0");
+    } else if(ui->resultLine->text() == "0" and not premierNombre) {
+        ui->resultLine->setText("0");
+    } else if(ui->resultLine->text() != "0") {
+        ui->resultLine->setText(ui->resultLine->text() + "0");
+    }
+}
+
+void health::on_number1_clicked()
+{
+    if(ui->resultLine->text() == "0") {
+        ui->resultLine->setText("1");
+    } else if(ui->resultLine->text() == "0" and not premierNombre) {
+        ui->resultLine->setText("1");
+    } else if(ui->resultLine->text() != "0") {
+        ui->resultLine->setText(ui->resultLine->text() + "1");
+    }
+}
+
+void health::on_number2_clicked()
+{
+     if(ui->resultLine->text() == "0") {
+        ui->resultLine->setText("2");
+    } else if(ui->resultLine->text() == "0" and not premierNombre) {
+        ui->resultLine->setText("2");
+    } else if(ui->resultLine->text() != "0") {
+        ui->resultLine->setText(ui->resultLine->text() + "2");
+    }
+}
+
+void health::on_number3_clicked()
+{
+     if(ui->resultLine->text() == "0") {
+        ui->resultLine->setText("3");
+    } else if(ui->resultLine->text() == "0" and not premierNombre) {
+        ui->resultLine->setText("3");
+    } else if(ui->resultLine->text() != "0") {
+        ui->resultLine->setText(ui->resultLine->text() + "3");
+    }
+}
+
+void health::on_number4_clicked()
+{
+    if(ui->resultLine->text() == "0") {
+        ui->resultLine->setText("4");
+    } else if(ui->resultLine->text() == "0" and not premierNombre) {
+       ui->resultLine->setText("4");
+    } else if(ui->resultLine->text() != "0") {
+        ui->resultLine->setText(ui->resultLine->text() + "4");
+    }
+}
+
+void health::on_number5_clicked()
+{
+    if(ui->resultLine->text() == "0") {
+        ui->resultLine->setText("5");
+    } else if(ui->resultLine->text() == "0" and not premierNombre) {
+        ui->resultLine->setText("5");
+    } else if(ui->resultLine->text() != "0") {
+        ui->resultLine->setText(ui->resultLine->text() + "5");
+    }
+}
+
+void health::on_number6_clicked()
+{
+    if(ui->resultLine->text() == "0") {
+        ui->resultLine->setText("6");
+    } else if(ui->resultLine->text() == "0" and not premierNombre) {
+        ui->resultLine->setText("6");
+    } else if(ui->resultLine->text() != "0") {
+        ui->resultLine->setText(ui->resultLine->text() + "6");
+    }
+}
+
+void health::on_number7_clicked()
+{
+    if(ui->resultLine->text() == "0") {
+        ui->resultLine->setText("7");
+    } else if(ui->resultLine->text() == "0" and not premierNombre) {
+        ui->resultLine->setText("7");
+    } else if(ui->resultLine->text() != "0") {
+        ui->resultLine->setText(ui->resultLine->text() + "7");
+    }
+}
+
+void health::on_number8_clicked()
+{
+    if(ui->resultLine->text() == "0") {
+        ui->resultLine->setText("8");
+    } else if(ui->resultLine->text() == "0" and not premierNombre) {
+        ui->resultLine->setText("8");
+    } else if(ui->resultLine->text() != "0") {
+        ui->resultLine->setText(ui->resultLine->text() + "8");
+    }
+}
+
+void health::on_number9_clicked()
+{
+    if(ui->resultLine->text() == "0") {
+        ui->resultLine->setText("9");
+    } else if(ui->resultLine->text() == "0" and not premierNombre) {
+        ui->resultLine->setText("9");
+    } else if(ui->resultLine->text() != "0") {
+        ui->resultLine->setText(ui->resultLine->text() + "9");
+    }
+}
+
+void health::on_clearBouton_clicked()
+{
+    ui->resultLine->setText("0");
+    premierNombre = 0;
+}
+
+void health::on_ansBouton_clicked()
+{
+    if(ansNombre != 0) {
+        ui->resultLine->setText(ansNombre);
+    }
+}
+
+void health::on_virguleBouton_clicked()
+{
+    ui->resultLine->setText(ui->resultLine->text() + ".");
+}
+
+
+
+
+
+
+
+
 
 

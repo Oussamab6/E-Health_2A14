@@ -69,6 +69,8 @@ private slots:
     void on_pushButton_imprimer_2_clicked();
 
     void on_lineEdit_cursorPositionChanged(int arg1, int arg2);
+    void makePlot_Salaire ();
+        QVector<double> Statistique_Salaire();
 
 
 
@@ -235,6 +237,42 @@ private slots:
 
         void on_pushButton_arduino_clicked();
 
+        void on_pushButton_calculer_clicked();
+
+        /***************************************************************************************************************/
+        /***************************************************************************************************************/
+        /***************************************************************************************************************/
+        /***************************************************************************************************************/
+        /***************************************************************************************************************/
+        void on_number0_clicked();
+        void on_number1_clicked();
+        void on_number2_clicked();
+        void on_number3_clicked();
+        void on_number4_clicked();
+        void on_number5_clicked();
+        void on_number6_clicked();
+        void on_number7_clicked();
+        void on_number8_clicked();
+        void on_number9_clicked();
+        void on_clearBouton_clicked();
+        void on_calculBouton_clicked();
+        void on_ansBouton_clicked();
+        void on_additionnerBouton_clicked();
+        void on_diviserBouton_clicked();
+        void on_soustraireBouton_clicked();
+        void on_multiplierBouton_clicked();
+        void on_virguleBouton_clicked();
+
+        void on_pushButton_ret15_clicked();
+
+        void on_pushButton_salaire_clicked();
+
+        void on_pushButton_statis_clicked();
+
+        void on_pushButton_ret200_clicked();
+
+        void on_pushButton_21_gc_clicked();
+
 private:
     Ui::health *ui;
     QPropertyAnimation* animation ;
@@ -249,6 +287,11 @@ private:
     donneur tmpdonneur;
     don tmpdon;
     QSqlTableModel *model;
+    /***********************/
+    float premierNombre;
+    QString ansNombre;
+    enum Actions {diviser, multiplier, additionner, soustraire};
+    Actions action;
 };
 
 #endif // HEALTH_H

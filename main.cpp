@@ -2,12 +2,33 @@
 #include"connection.h"
 #include <QMessageBox>
 #include <QApplication>
+#include <QTranslator>
+#include<QInputDialog>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
     Connection c ;
+    QTranslator t;
+       QStringList languages ;
+       languages << "ARABIC"<<"FRENCH"<<"ENGLISH";
+       QString lang = QInputDialog::getItem(NULL,"SELECTIONNER VOTRE LANGUE",
+                                            "LANGUE",languages);
+       if ( lang =="ARABIC")
+       {
+           t.load(":/arabic.qm");
+       }
+       else if( lang =="ENGLISH")
+        {
+           t.load(":/english.qm");
+        }
+
+       if ( lang != "fFRENCH")
+       {
+           a.installTranslator(&t);
+       }
+
     bool test=c.createconnect();
     if(test)
     {
