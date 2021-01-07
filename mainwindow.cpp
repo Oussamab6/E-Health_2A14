@@ -40,7 +40,7 @@ void MainWindow::on_pushButton_clicked()
     query.addBindValue(ui->lineEdit_pass->text());
     query.exec();
      health h;
-      h.exec();
+
 
    if (query.exec())
     {

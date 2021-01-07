@@ -16,7 +16,7 @@
 #include <QPrintDialog>
 #include <QPrinter>
 #include"QDate"
-
+#include "statistique.h"
 #include<QString>
 #include<QThread>
 #include <QMessageBox>
@@ -2420,6 +2420,18 @@ void health::on_ajouter_emp_clicked()
         int heure_rv = ui->heure_rv->text().toInt();
 
     emploi e (id_res,id_doc,email_doc,date_rv,heure_rv);
+     int i,test1=0;
+     for (i=0;i<date_rv.length();i++)
+                  {
+           if( date_rv[i]=="/")
+           {
+                test1=1;
+
+           }
+                  }
+      if(test1==1)
+             {
+
       bool test=e.ajouter(id_res,id_doc,email_doc,date_rv,heure_rv);
       if(test)
     {ui->tabemploi_2->setModel(tmpemp.afficher());//refresh
@@ -2436,7 +2448,11 @@ void health::on_ajouter_emp_clicked()
 
 
     }
-
+      else
+                QMessageBox::critical(nullptr, QObject::tr("Ajouter un emploi du temps"),
+                            QObject::tr("Date incorrect !.\n"
+                                        "Click Cancel to exit."), QMessageBox::Cancel);
+}
 
 void health::on_supprimer_emploi_clicked()
 {
@@ -2492,14 +2508,14 @@ void health::on_modifier_emp_clicked()
     if(test)
   {ui->tabemploi_2->setModel(tmpemp.afficher());//refresh
   QMessageBox::information(nullptr, QObject::tr("Ajouter un emploi du temps"),
-                    QObject::tr("EMPLOI ajouté.\n"
+                    QObject::tr("EMPLOI modifié.\n"
                                 "Click Cancel to exit."), QMessageBox::Cancel);
 
   }
 
     else
     {
-        QMessageBox::critical(nullptr, QObject::tr("Ajouter un emploi du temps"),
+        QMessageBox::critical(nullptr, QObject::tr("modifier un emploi du temps"),
                     QObject::tr("Erreur !.\n"
                                 "Click Cancel to exit."), QMessageBox::Cancel);
 
@@ -2692,7 +2708,7 @@ void health::on_ajouter_res_clicked()
 
 void health::on_supprimer_res_clicked()
 {
-    int id = ui->reference_sup_e->text().toInt();
+    int id = ui->reference_sup_e_2->text().toInt();
     bool test=tmpres.supprimer(id);
     if(test)
     {
@@ -2963,3 +2979,9 @@ void health::on_pushButton_22_clicked()
 }
 
 
+
+void health::on_statistiques_res_clicked()
+{
+Statistique *a=new Statistique();
+    a->show();
+}

@@ -26,6 +26,7 @@ SOURCES += \
     patient.cpp \
     qcustomplot.cpp \
     reservation.cpp \
+    statistique.cpp \
     tableprinter.cpp \
     tache.cpp \
     widget.cpp
@@ -49,11 +50,13 @@ HEADERS += \
     patient.h \
     qcustomplot.h \
     reservation.h \
+    statistique.h \
     tableprinter.h \
     tache.h \
     widget.h
 
 FORMS += \
+    ../../crud_souheil/statistique.ui \
     DuMesengerConnectionDialog.ui \
     health.ui \
     mainwindow.ui \
