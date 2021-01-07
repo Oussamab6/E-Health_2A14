@@ -1,14 +1,30 @@
 #include "health.h"
 #include "ui_health.h"
-
+#include "emploi_du_temps.h"
+#include <QMessageBox>
+#include <QTextDocument>
+#include <QTextStream>
+#include <QPrintDialog>
+#include <QPrinter>
+#include"QDate"
 #include "patient.h"
 #include "dossiermedical.h"
+#include "reservation.h"
+#include <QMessageBox>
+#include <QTextDocument>
+#include <QTextStream>
+#include <QPrintDialog>
+#include <QPrinter>
+#include"QDate"
+
 #include<QString>
 #include<QThread>
 #include <QMessageBox>
 #include "EMPLOYE.h"
 #include "tache.h"
 #include "mainwindow.h"
+#include "ui_health.h"
+
 #include "ui_mainwindow.h"
 #include<QDebug>
 #include <QRadioButton>
@@ -109,6 +125,22 @@ health::health(QWidget *parent) :
    // ui->tableView->setModel(tmpcontrat.affichertable());
     model = new QSqlTableModel;
     model->select();
+    ui->id_r->setMaxLength(4);
+    ui->nom_pat->setMaxLength(8);
+    ui->prenom_pat->setMaxLength(8);
+    ui->date_r->setMaxLength(10);
+    ui->sex_e->setMaxLength(1);
+    ui->id_res->setMaxLength(4);
+    ui->id_doc->setMaxLength(4);
+    ui->date_rv->setMaxLength(10);
+    ui->heure_rv->setMaxLength(2);
+
+
+
+
+
+
+
 
 }
 
@@ -2177,6 +2209,20 @@ void health::on_pushButton_calculer_clicked()
     ui->stackedWidget_2->setCurrentIndex(11);
 
 }
+void health::on_pushButton_reservation_clicked()
+{
+    ui->stackedWidget_2->setCurrentIndex(13);
+      ui->stackedWidget_9->setCurrentIndex(4);
+
+}
+
+void health::on_pushButton_emploi_clicked()
+{
+    ui->stackedWidget_2->setCurrentIndex(14);
+    ui->stackedWidget_8->setCurrentIndex(4);
+
+
+}
 void health::on_calculBouton_clicked()
 {
     float nbr2, calculNbr;
@@ -2366,10 +2412,554 @@ void health::on_virguleBouton_clicked()
 
 
 
+void health::on_ajouter_emp_clicked()
+{    int id_res = ui->id_res->text().toInt();
+      int id_doc = ui->id_res->text().toInt();
+    QString email_doc = ui->email_doc->text();
+      QString date_rv = ui->date_rv->text();
+        int heure_rv = ui->heure_rv->text().toInt();
+
+    emploi e (id_res,id_doc,email_doc,date_rv,heure_rv);
+      bool test=e.ajouter(id_res,id_doc,email_doc,date_rv,heure_rv);
+      if(test)
+    {ui->tabemploi_2->setModel(tmpemp.afficher());//refresh
+    QMessageBox::information(nullptr, QObject::tr("Ajouter un emploi du temps"),
+                      QObject::tr("Emploi du temps ajouté.\n"
+                                  "Click Cancel to exit."), QMessageBox::Cancel);
+      ui->stackedWidget_8->setCurrentIndex(1);
+
+    }
+      else
+          QMessageBox::critical(nullptr, QObject::tr("Ajouter un emploi du temps"),
+                      QObject::tr("Erreur !.\n"
+                                  "Click Cancel to exit."), QMessageBox::Cancel);
+
+
+    }
+
+
+void health::on_supprimer_emploi_clicked()
+{
+    int id = ui->reference_sup_e->text().toInt();
+    bool test=tmpemp.supprimer(id);
+    if(test)
+    { const int DeltaPos = 10;
+
+        QPropertyAnimation *animation = new QPropertyAnimation(this, "pos");
+        animation->setDuration(500);
+
+
+           /* Animation mainwindow*/
+            int oldX = pos().x();
+            animation->setEasingCurve(QEasingCurve(static_cast<QEasingCurve::Type>(10)));
+            animation->setKeyValueAt(0.0, QPoint(oldX - DeltaPos, pos().y()));
+            animation->setKeyValueAt(0.1, QPoint(oldX + DeltaPos, pos().y()));
+            animation->setKeyValueAt(0.2, QPoint(oldX - DeltaPos, pos().y()));
+            animation->setKeyValueAt(0.3, QPoint(oldX + DeltaPos, pos().y()));
+            animation->setKeyValueAt(0.4, QPoint(oldX - DeltaPos, pos().y()));
+            animation->setKeyValueAt(0.5, QPoint(oldX + DeltaPos, pos().y()));
+            animation->setKeyValueAt(0.6, QPoint(oldX - DeltaPos, pos().y()));
+            animation->setKeyValueAt(0.7, QPoint(oldX + DeltaPos, pos().y()));
+            animation->setKeyValueAt(0.8, QPoint(oldX - DeltaPos, pos().y()));
+            animation->setKeyValueAt(0.9, QPoint(oldX + DeltaPos, pos().y()));
+            animation->setKeyValueAt(1.0, QPoint(oldX, pos().y()));
+
+
+        animation->start(QAbstractAnimation::DeleteWhenStopped);
+        ui->tabemploi_2->setModel(tmpemp.afficher());//refresh
+        QMessageBox::information(nullptr, QObject::tr("Supprimer l'emploi"),
+                    QObject::tr("EMPLOI supprimé.\n"
+                                "Click Cancel to exit."), QMessageBox::Cancel);
+        ui->stackedWidget_8->setCurrentIndex(1);
+
+
+
+}
+}
+
+void health::on_modifier_emp_clicked()
+{
+    int id_res = ui->id_res->text().toInt();
+         int id_doc = ui->id_res->text().toInt();
+       QString email_doc = ui->email_doc->text();
+         QString date_rv = ui->date_rv->text();
+           int heure_rv = ui->heure_rv->text().toInt();
+    emploi E;
+    bool test=false;
+    { if((heure_rv<0)||(heure_rv))
+            test=true;}
+     if(test)E.modifier(id_res,id_doc,email_doc,date_rv,heure_rv);
+    if(test)
+  {ui->tabemploi_2->setModel(tmpemp.afficher());//refresh
+  QMessageBox::information(nullptr, QObject::tr("Ajouter un emploi du temps"),
+                    QObject::tr("EMPLOI ajouté.\n"
+                                "Click Cancel to exit."), QMessageBox::Cancel);
+
+  }
+
+    else
+    {
+        QMessageBox::critical(nullptr, QObject::tr("Ajouter un emploi du temps"),
+                    QObject::tr("Erreur !.\n"
+                                "Click Cancel to exit."), QMessageBox::Cancel);
+
+  }
+}
+
+void health::on_chercher_emploi_clicked()
+{
+    int id = ui->chercher_id->text().toInt();
+            ui->afficher_emp->setModel(tmpemp.recherche_e(id));
+}
+
+void health::on_imprimer_emploi_clicked()
+{
+    /*QString strStream;
+            QTextStream out(&strStream);
+
+            const int rowCount = ui->afficher_emp->model()->rowCount();
+            const int columnCount = ui->afficher_emp->model()->columnCount();
+            QString TT = QDate::currentDate().toString("yyyy/MM/dd");
+            out <<"<html>\n"
+                  "<head>\n"
+                   "<meta Content=\"Text/html; charset=Windows-1251\">\n"
+                << "<title>ERP - COMmANDE LIST<title>\n "
+                << "</head>\n"
+                "<body bgcolor=#ffffff link=#5000A0>\n"
+                "<h1 style=\"text-align: center;\"><strong> *****LISTE DES EMPLOI DU TEMPS ***** "+TT+"</strong></h1>"
+                "<table style=\"text-align: center; font-size: 20px;\" border=1>\n "
+                  "</br> </br>";
+            // headers
+            out << "<thead><tr bgcolor=#d6e5ff>";
+            for (int column = 0; column < columnCount; column++)
+                if (!ui->afficher_emp->isColumnHidden(column))
+                    out << QString("<th>%1</th>").arg(ui->afficher_emp->model()->headerData(column, Qt::Horizontal).toString());
+            out << "</tr></thead>\n";
+
+            // data table
+            for (int row = 0; row < rowCount; row++) {
+                out << "<tr>";
+                for (int column = 0; column < columnCount; column++) {
+                    if (!ui->afficher_emp->isColumnHidden(column)) {
+                        QString data =ui->afficher_emp->model()->data(ui->afficher_emp->model()->index(row, column)).toString().simplified();
+                        out << QString("<td bkcolor=0>%1</td>").arg((!data.isEmpty()) ? data : QString("&nbsp;"));
+                    }
+                }
+                out << "</tr>\n";
+            }
+            out <<  "</table>\n"
+                "</body>\n"
+                "</html>\n";
+
+            QTextDocument *document = new QTextDocument();
+            document->setHtml(strStream);
+
+            QPrinter printer;
+
+            QPrintDialog *baba = new QPrintDialog(&printer, NULL);
+            if (baba->exec() == QDialog::Accepted) {
+                document->print(&printer);
+            }
+
+            delete document;*/
+    QString strStream;
+            QTextStream out(&strStream);
+            const int rowCount = ui->tabemploi_2->model()->rowCount();
+            const int columnCount =ui->tabemploi_2->model()->columnCount();
+
+            out <<  "<html>\n"
+                    "<head>\n"
+                    "<meta Content=\"Text/html; charset=Windows-1251\">\n"
+                    <<  QString("<title>%1</title>\n").arg("emploi du temps")
+                    <<  "</head>\n"
+                    "<body bgcolor=#CFC4E1 link=#5000A0>\n"
+                        "<img src='C:/Users/ksemt/Desktop/final/icon/logo.webp' width='100' height='100'>\n"
+                        "<h1>Liste des emploi du temps</h1>"
+
+
+
+                        "<table border=1 cellspacing=0 cellpadding=2>\n";
+
+
+            // headers
+                out << "<thead><tr bgcolor=#f0f0f0>";
+                for (int column = 0; column < columnCount; column++)
+                    if (!ui->tabemploi_2->isColumnHidden(column))
+                        out << QString("<th>%1</th>").arg(ui->tabemploi_2->model()->headerData(column, Qt::Horizontal).toString());
+                out << "</tr></thead>\n";
+                // data table
+                   for (int row = 0; row < rowCount; row++) {
+                       out << "<tr>";
+                       for (int column = 0; column < columnCount; column++) {
+                           if (!ui->tabemploi_2->isColumnHidden(column)) {
+                               QString data = ui->tabemploi_2->model()->data(ui->tabemploi_2->model()->index(row, column)).toString().simplified();
+                               out << QString("<td bkcolor=0>%1</td>").arg((!data.isEmpty()) ? data : QString("&nbsp;"));
+                           }
+                       }
+                       out << "</tr>\n";
+                   }
+                   out <<  "</table>\n"
+                       "</body>\n"
+                       "</html>\n";
+
+                   QTextDocument *document = new QTextDocument();
+                   document->setHtml(strStream);
+
+                   QPrinter printer;
+
+                   QPrintDialog *dialog = new QPrintDialog(&printer, NULL);
+                   if (dialog->exec() == QDialog::Accepted) {
+                       document->print(&printer);
+
+}
+}
+
+void health::on_trier_emploi_cr_clicked()
+{
+    ui->tabemploi_2->setModel(tmpemp.tri(1));
+}
+
+void health::on_trier_emploi_decr_clicked()
+{
+      ui->tabemploi_2->setModel(tmpemp.tri(0));
+}
+
+void health::on_ajouter_res_clicked()
+{
+       int id_r = ui->id_r->text().toInt();
+       QString nom_pat = ui->nom_pat->text();
+       QString prenom_pat = ui->prenom_pat->text();
+       QString email_pat = ui->email_pat->text();
+       QString date_r = ui->date_r->text();
+       QString sex_e = ui->sex_e->text();
+
+
+       reservation e (id_r,nom_pat,prenom_pat,email_pat,date_r,sex_e);
+       int i,test1=0;
+
+
+
+               for (i=0;i<date_r.length();i++)
+               {
+        if( date_r[i]=="/")
+        {
+             test1=1;
+
+        }
+               }
+               if(nom_pat.contains(QRegExp("^[A-Za-z ]+$")))
+               {
+               if(prenom_pat.contains(QRegExp("^[A-Za-z ]+$")))
+               {
+       if(test1==1)
+       {
+
+         bool test=e.ajouter(id_r,nom_pat,prenom_pat,email_pat,date_r,sex_e);
+
+         if(test)
+       {ui->tabreservation_2->setModel(tmpres.afficher());//refresh
+       QMessageBox::information(nullptr, QObject::tr("Ajouter une reservation"),
+                         QObject::tr("reservation ajouté.\n"
+                                     "Click Cancel to exit."), QMessageBox::Cancel);
+       ui->stackedWidget_9->setCurrentIndex(1);
+
+
+       }
+         else
+             QMessageBox::critical(nullptr, QObject::tr("Ajouter un emploi du temps"),
+                         QObject::tr("Erreur !.\n"
+                                     "Click Cancel to exit."), QMessageBox::Cancel);
+
+}
+
+       else
+           QMessageBox::critical(nullptr, QObject::tr("Ajouter un emploi du temps"),
+                       QObject::tr("Date incorrect !.\n"
+                                   "Click Cancel to exit."), QMessageBox::Cancel);
+               }
+               else
+                   QMessageBox::critical(nullptr, QObject::tr("Ajouter un emploi du temps"),
+                               QObject::tr("Prenom incorrect !.\n"
+                                           "Click Cancel to exit."), QMessageBox::Cancel);
+               }
+
+               else
+                   QMessageBox::critical(nullptr, QObject::tr("Ajouter un emploi du temps"),
+                               QObject::tr("nom incorrect !.\n"
+                                           "Click Cancel to exit."), QMessageBox::Cancel);
+}
+
+
+void health::on_supprimer_res_clicked()
+{
+    int id = ui->reference_sup_e->text().toInt();
+    bool test=tmpres.supprimer(id);
+    if(test)
+    {
+        const int DeltaPos = 10;
+
+                   QPropertyAnimation *animation = new QPropertyAnimation(this, "pos");
+                   animation->setDuration(500);
+
+
+                      /* Animation mainwindow*/
+                       int oldX = pos().x();
+                       animation->setEasingCurve(QEasingCurve(static_cast<QEasingCurve::Type>(10)));
+                       animation->setKeyValueAt(0.0, QPoint(oldX - DeltaPos, pos().y()));
+                       animation->setKeyValueAt(0.1, QPoint(oldX + DeltaPos, pos().y()));
+                       animation->setKeyValueAt(0.2, QPoint(oldX - DeltaPos, pos().y()));
+                       animation->setKeyValueAt(0.3, QPoint(oldX + DeltaPos, pos().y()));
+                       animation->setKeyValueAt(0.4, QPoint(oldX - DeltaPos, pos().y()));
+                       animation->setKeyValueAt(0.5, QPoint(oldX + DeltaPos, pos().y()));
+                       animation->setKeyValueAt(0.6, QPoint(oldX - DeltaPos, pos().y()));
+                       animation->setKeyValueAt(0.7, QPoint(oldX + DeltaPos, pos().y()));
+                       animation->setKeyValueAt(0.8, QPoint(oldX - DeltaPos, pos().y()));
+                       animation->setKeyValueAt(0.9, QPoint(oldX + DeltaPos, pos().y()));
+                       animation->setKeyValueAt(1.0, QPoint(oldX, pos().y()));
+
+
+                   animation->start(QAbstractAnimation::DeleteWhenStopped);
+        ui->tabreservation_2->setModel(tmpres.afficher());//refresh
+        QMessageBox::information(nullptr, QObject::tr("Supprimer Reservation "),
+                    QObject::tr("Reservation supprimé.\n"
+                                "Click Cancel to exit."), QMessageBox::Cancel);
+        ui->stackedWidget_9->setCurrentIndex(1);
+
+
+}
+}
+
+void health::on_modifier_res_clicked()
+{
+    int id_r = ui->id_r->text().toInt();
+    QString nom_pat = ui->nom_pat->text();
+    QString prenom_pat = ui->prenom_pat->text();
+    QString email_pat = ui->email_pat->text();
+    QString date_r = ui->date_r->text();
+    QString sex_e = ui->sex_e->text();
+    reservation E;
+
+      bool test= E.modifier(id_r,nom_pat,prenom_pat,email_pat,date_r,sex_e);
+    if(test)
+  {ui->tabreservation_2->setModel(tmpres.afficher());//refresh
+  QMessageBox::information(nullptr, QObject::tr("Ajouter une reservation"),
+                    QObject::tr("RESERVATION modifier.\n"
+                                "Click Cancel to exit."), QMessageBox::Cancel);
+  ui->stackedWidget_9->setCurrentIndex(1);
+
+
+}
+
+
+    else
+    {
+        QMessageBox::critical(nullptr, QObject::tr("Ajouter une reservation"),
+                    QObject::tr("Erreur !.\n"
+                                "Click Cancel to exit."), QMessageBox::Cancel);
+
+  }
+}
+
+
+
+void health::on_chercher_employe_clicked()
+{
+    int id = ui->chercher_e->text().toInt();
+            ui->afficher_trie->setModel(tmpres.recherche_e(id));
+}
+
+void health::on_imprimer_res_clicked()
+{
+    /*QString strStream;
+            QTextStream out(&strStream);
+
+            const int rowCount = ui->afficher_trie->model()->rowCount();
+            const int columnCount = ui->afficher_trie->model()->columnCount();
+            QString TT = QDate::currentDate().toString("yyyy/MM/dd");
+            out <<"<html>\n"
+                  "<head>\n"
+                   "<meta Content=\"Text/html; charset=Windows-1251\">\n"
+                << "<title>ERP - COMmANDE LIST<title>\n "
+                << "</head>\n"
+                "<body bgcolor=#ffffff link=#5000A0>\n"
+                "<h1 style=\"text-align: center;\"><strong> *****LISTE DES RESERVATIONS ***** "+TT+"</strong></h1>"
+                "<table style=\"text-align: center; font-size: 20px;\" border=1>\n "
+                  "</br> </br>";
+            // headers
+            out << "<thead><tr bgcolor=#d6e5ff>";
+            for (int column = 0; column < columnCount; column++)
+                if (!ui->afficher_trie->isColumnHidden(column))
+                    out << QString("<th>%1</th>").arg(ui->afficher_trie->model()->headerData(column, Qt::Horizontal).toString());
+            out << "</tr></thead>\n";
+
+            // data table
+            for (int row = 0; row < rowCount; row++) {
+                out << "<tr>";
+                for (int column = 0; column < columnCount; column++) {
+                    if (!ui->afficher_trie->isColumnHidden(column)) {
+                        QString data =ui->afficher_trie->model()->data(ui->afficher_trie->model()->index(row, column)).toString().simplified();
+                        out << QString("<td bkcolor=0>%1</td>").arg((!data.isEmpty()) ? data : QString("&nbsp;"));
+                    }
+                }
+                out << "</tr>\n";
+            }
+            out <<  "</table>\n"
+                "</body>\n"
+                "</html>\n";
+
+            QTextDocument *document = new QTextDocument();
+            document->setHtml(strStream);
+
+            QPrinter printer;
+
+            QPrintDialog *baba = new QPrintDialog(&printer, NULL);
+            if (baba->exec() == QDialog::Accepted) {
+                document->print(&printer);
+            }
+
+            delete document;*/
+    QString strStream;
+            QTextStream out(&strStream);
+            const int rowCount = ui->tabreservation_2->model()->rowCount();
+            const int columnCount =ui->tabreservation_2->model()->columnCount();
+
+            out <<  "<html>\n"
+                    "<head>\n"
+                    "<meta Content=\"Text/html; charset=Windows-1251\">\n"
+                    <<  QString("<title>%1</title>\n").arg("reservation")
+                    <<  "</head>\n"
+                    "<body bgcolor=#CFC4E1 link=#5000A0>\n"
+                        "<img src='C:/Users/ksemt/Desktop/final/icon/logo.webp' width='100' height='100'>\n"
+                        "<h1>Liste des reservation</h1>"
+
+
+
+                        "<table border=1 cellspacing=0 cellpadding=2>\n";
+
+
+            // headers
+                out << "<thead><tr bgcolor=#f0f0f0>";
+                for (int column = 0; column < columnCount; column++)
+                    if (!ui->tabreservation_2->isColumnHidden(column))
+                        out << QString("<th>%1</th>").arg(ui->tabreservation_2->model()->headerData(column, Qt::Horizontal).toString());
+                out << "</tr></thead>\n";
+                // data table
+                   for (int row = 0; row < rowCount; row++) {
+                       out << "<tr>";
+                       for (int column = 0; column < columnCount; column++) {
+                           if (!ui->tabreservation_2->isColumnHidden(column)) {
+                               QString data = ui->tabreservation_2->model()->data(ui->tabreservation_2->model()->index(row, column)).toString().simplified();
+                               out << QString("<td bkcolor=0>%1</td>").arg((!data.isEmpty()) ? data : QString("&nbsp;"));
+                           }
+                       }
+                       out << "</tr>\n";
+                   }
+                   out <<  "</table>\n"
+                       "</body>\n"
+                       "</html>\n";
+
+                   QTextDocument *document = new QTextDocument();
+                   document->setHtml(strStream);
+
+                   QPrinter printer;
+
+                   QPrintDialog *dialog = new QPrintDialog(&printer, NULL);
+                   if (dialog->exec() == QDialog::Accepted) {
+                       document->print(&printer);
+
+}}
+
+void health::on_tri_asc_res_clicked()
+{
+      ui->tabreservation_2->setModel(tmpres.tri(1));
+}
+
+void health::on_tri_desc_res_clicked()
+{
+    ui->tabreservation_2->setModel(tmpres.tri(0));
+}
+
+/*void health::on_statistiques_res_clicked()
+{
+    Statistique *a=new Statistique();
+    a->show();
+}
+
+*/
 
 
 
 
 
+void health::on_pushButton_4_clicked()
+{
+    ui->stackedWidget_9->setCurrentIndex(0);
+
+}
+
+void health::on_pushButton_5_clicked()
+{
+    ui->tabreservation_2->setModel(tmpres.afficher());
+    ui->stackedWidget_9->setCurrentIndex(1);
+
+}
+
+void health::on_pushButton_6_clicked()
+{
+    ui->stackedWidget_9->setCurrentIndex(2);
+
+}
+
+void health::on_pushButton_7_clicked()
+{
+    ui->stackedWidget_9->setCurrentIndex(3);
+
+}
+
+void health::on_pushButton_12_clicked()
+{
+    ui->stackedWidget_9->setCurrentIndex(4);
+
+}
+
+void health::on_pushButton_15_clicked()
+{
+    ui->stackedWidget_8->setCurrentIndex(0);
+
+}
+
+void health::on_pushButton_16_clicked()
+{
+    ui->stackedWidget_8->setCurrentIndex(1);
+    ui->tabemploi_2->setModel(tmpemp.afficher());
+}
+
+void health::on_pushButton_17_clicked()
+{
+    ui->stackedWidget_8->setCurrentIndex(2);
+}
+
+void health::on_pushButton_18_clicked()
+{
+    ui->stackedWidget_8->setCurrentIndex(3);
+}
+
+void health::on_pushButton_20_clicked()
+{
+    ui->stackedWidget_8->setCurrentIndex(4);
+}
+
+void health::on_pushButton_21_clicked()
+{
+    ui->stackedWidget_2->setCurrentIndex(0);
+
+}
+
+void health::on_pushButton_22_clicked()
+{
+    ui->stackedWidget_2->setCurrentIndex(0);
+
+
+}
 
 

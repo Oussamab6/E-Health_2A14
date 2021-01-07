@@ -16,6 +16,7 @@ SOURCES += \
     don.cpp \
     donneur.cpp \
     dossiermedical.cpp \
+    emploi_du_temps.cpp \
     health.cpp \
     machine.cpp \
  main.cpp \
@@ -24,11 +25,13 @@ SOURCES += \
     partenaire.cpp \
     patient.cpp \
     qcustomplot.cpp \
+    reservation.cpp \
     tableprinter.cpp \
     tache.cpp \
     widget.cpp
 
 HEADERS += \
+    ../../Downloads/crud_souheil/reservation.h \
     DuMesengerConnectionDialog.h \
     EMPLOYE.h \
     arduino.h \
@@ -37,6 +40,7 @@ HEADERS += \
     don.h \
     donneur.h \
     dossiermedical.h \
+    emploi_du_temps.h \
     health.h \
     machine.h \
     mainwindow.h \
@@ -44,6 +48,7 @@ HEADERS += \
     partenaire.h \
     patient.h \
     qcustomplot.h \
+    reservation.h \
     tableprinter.h \
     tache.h \
     widget.h

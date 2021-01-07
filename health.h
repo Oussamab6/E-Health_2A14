@@ -21,6 +21,14 @@
 #include <QTextDocument>
 #include "donneur.h"
 #include "don.h"
+#include "emploi_du_temps.h"
+#include "reservation.h"
+#include <QTextDocument>
+#include <QTextStream>
+#include <QPrintDialog>
+#include <QPrinter>
+#include"QDate"
+#include<QDialog>
 
 
 namespace Ui {
@@ -274,6 +282,69 @@ private slots:
 
         void on_pushButton_21_gc_clicked();
 
+        void on_comboBoxDon_2_activated(const QString &arg1);
+
+        void on_pushButton_reservation_clicked();
+
+        void on_pushButton_emploi_clicked();
+        void on_ajouter_emp_clicked();
+
+        void on_supprimer_emploi_clicked();
+
+        void on_modifier_emp_clicked();
+
+        void on_chercher_emploi_clicked();
+
+        void on_imprimer_emploi_clicked();
+
+        void on_trier_emploi_cr_clicked();
+
+        void on_trier_emploi_decr_clicked();
+        void on_ajouter_res_clicked();
+
+        void on_supprimer_res_clicked();
+
+        void on_modifier_res_clicked();
+
+
+        void on_chercher_employe_clicked();
+
+        void on_imprimer_res_clicked();
+
+        void on_tri_asc_res_clicked();
+
+        void on_tri_desc_res_clicked();
+
+        void on_statistiques_res_clicked();
+
+        void on_modifier_clicked();
+
+
+        void on_pushButton_4_clicked();
+
+        void on_pushButton_5_clicked();
+
+        void on_pushButton_6_clicked();
+
+        void on_pushButton_7_clicked();
+
+        void on_pushButton_12_clicked();
+
+        void on_pushButton_15_clicked();
+
+        void on_pushButton_16_clicked();
+
+        void on_pushButton_17_clicked();
+
+        void on_pushButton_18_clicked();
+
+        void on_pushButton_20_clicked();
+
+        void on_pushButton_21_clicked();
+
+        void on_pushButton_22_clicked();
+
+
 private:
     Ui::health *ui;
     QPropertyAnimation* animation ;
@@ -293,6 +364,8 @@ private:
     QString ansNombre;
     enum Actions {diviser, multiplier, additionner, soustraire};
     Actions action;
+     emploi tmpemp;
+     reservation tmpres;
 
 };
 
