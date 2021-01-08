@@ -16,7 +16,7 @@
 #include <QPrintDialog>
 #include <QPrinter>
 #include"QDate"
-#include "statistique.h"
+//#include "statistique.h"
 #include<QString>
 #include<QThread>
 #include <QMessageBox>
@@ -2980,8 +2980,8 @@ void health::on_pushButton_22_clicked()
 
 
 
-void health::on_statistiques_res_clicked()
+/*void health::on_statistiques_res_clicked()
 {
 Statistique *a=new Statistique();
     a->show();
-}
+}*/
