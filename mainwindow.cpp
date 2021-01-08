@@ -30,7 +30,10 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::on_pushButton_clicked()
-{   Connection c;
+{
+
+
+    Connection c;
 
    QSqlQuery query(test_bd);
     QString select = "SELECT UserName from LOGINS where UserName=? and Password=?";
@@ -40,7 +43,6 @@ void MainWindow::on_pushButton_clicked()
     query.addBindValue(ui->lineEdit_pass->text());
     query.exec();
      health h;
-
 
    if (query.exec())
     {

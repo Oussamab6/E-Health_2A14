@@ -4,7 +4,7 @@ don::don()
 {
 
 }
-don::don (int i,int q, QString e,QString d):id_don(i),quantite(q),emplacement(e),date_prelevement(d)
+don::don (int i,int q, QString e,QString d, QString c):id_don(i),quantite(q),emplacement(e),date_prelevement(d),cin(c)
 {
 
 }
@@ -14,14 +14,15 @@ bool don::ajouter()
 
     QString res= QString::number(id_don);
 
-    query.prepare("INSERT INTO DON (ID_DON, EMPLACEMENT, QUANTITE, DATE_PRELEV)"
-                  "VALUES (:ID_DON, :EMPLACEMENT, :QUANTITE, :DATE_PRELEV)");
+    query.prepare("INSERT INTO DON (ID_DON, EMPLACEMENT, QUANTITE, DATE_PRELEV, CIN)"
+                  "VALUES (:ID_DON, :EMPLACEMENT, :QUANTITE, :DATE_PRELEV, :CIN)");
 
 
     query.bindValue(":ID_DON",res);
     query.bindValue(":EMPLACEMENT",emplacement);
     query.bindValue(":QUANTITE",quantite);
     query.bindValue(":DATE_PRELEV",date_prelevement);
+    query.bindValue(":CIN",cin);
 
     return query.exec();
 }
@@ -30,12 +31,14 @@ QSqlQueryModel * don::afficher()
 {
     QSqlQueryModel *model= new QSqlQueryModel();
 
-    model->setQuery("select * from don");
+    model->setQuery("select DON.ID_DON, DON.EMPLACEMENT, DON.QUANTITE, DONNEUR.GROUPE_SANGUIN, DON.DATE_PRELEV, DON.CIN from don join donneur ON DON.CIN = DONNEUR.CIN");
 
     model->setHeaderData(0, Qt::Horizontal, QObject::tr("ID_DON"));
     model->setHeaderData(1, Qt::Horizontal, QObject::tr("EMPLACEMENT"));
     model->setHeaderData(2, Qt::Horizontal, QObject::tr("QUANTITE"));
-    model->setHeaderData(3, Qt::Horizontal, QObject::tr("DATE_PRELEV"));
+    model->setHeaderData(3, Qt::Horizontal, QObject::tr("GROUPE_SANGUIN"));
+    model->setHeaderData(4, Qt::Horizontal, QObject::tr("DATE_PRELEV"));
+    model->setHeaderData(5, Qt::Horizontal, QObject::tr("CIN"));
 
     return model;
 }
@@ -111,4 +114,66 @@ QSqlQueryModel *don::rechercherDate(QString input)
 
 
     return model;
+}
+
+int don::stat1()
+{
+    QSqlQuery query;
+        int count=0 ;
+        QSqlQuery requete("select * from DONNEUR join DON on DONNEUR.CIN = DON.CIN where DONNEUR.GROUPE_SANGUIN ='A+'") ;
+        while(requete.next())
+
+        {
+                count++ ;
+        }
+
+    return(count);
+
+
+}
+int don::stat2()
+{
+    QSqlQuery query;
+        int count=0 ;
+        QSqlQuery requete("select * from DONNEUR join DON on DONNEUR.CIN = DON.CIN where DONNEUR.GROUPE_SANGUIN ='AB+'") ;
+        while(requete.next())
+
+        {
+                count++ ;
+        }
+
+    return(count);
+
+
+}
+
+int don::stat3()
+{
+    QSqlQuery query;
+        int count=0 ;
+        QSqlQuery requete("select * from DONNEUR join DON on DONNEUR.CIN = DON.CIN where DONNEUR.GROUPE_SANGUIN ='O+'") ;
+        while(requete.next())
+
+        {
+                count++ ;
+        }
+
+    return(count);
+
+
+}
+int don::stat4()
+{
+    QSqlQuery query;
+        int count=0 ;
+        QSqlQuery requete("select * from DONNEUR join DON on DONNEUR.CIN = DON.CIN where DONNEUR.GROUPE_SANGUIN ='B+'") ;
+        while(requete.next())
+
+        {
+                count++ ;
+        }
+
+    return(count);
+
+
 }

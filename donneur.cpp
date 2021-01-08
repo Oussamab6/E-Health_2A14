@@ -1,4 +1,5 @@
 #include "donneur.h"
+#include <QStringList>
 
 donneur::donneur()
 {
@@ -45,6 +46,30 @@ QSqlQueryModel * donneur::afficher()
     return model;
 }
 
+QStringList donneur::getCINs()
+{
+   QStringList listCIN;
+    QSqlQuery query;
+       query.prepare("SELECT CIN FROM DONNEUR");
+       query.exec();
+       while(query.next()) {
+          listCIN.append(query.value(0).toString());
+       }
+    return listCIN;
+}
+
+QString donneur::getDatePrel(QString CIN)
+{
+
+    QSqlQuery query;
+       query.prepare("SELECT DATE_PRELEV FROM DONNEUR WHERE CIN=?");
+       query.addBindValue(CIN);
+       query.exec();
+       while(query.next()) {
+          return query.value(0).toString();
+       }
+    return NULL;
+}
 
 bool donneur::supprimer(int cin)
 {
@@ -129,49 +154,4 @@ QSqlQueryModel *donneur::rechercherDate(QString input)
 
     return model;
 }
-int donneur::stat1()
-{
-    QSqlQuery query;
-        int count=0 ;
-        QSqlQuery requete("select * from DONNEUR where GROUPE_SANGUIN ='A+'") ;
-        while(requete.next())
 
-        {
-                count++ ;
-        }
-
-    return(count);
-
-
-}
-int donneur::stat2()
-{
-    QSqlQuery query;
-        int count=0 ;
-        QSqlQuery requete("select * from DONNEUR where GROUPE_SANGUIN ='AB+'") ;
-        while(requete.next())
-
-        {
-                count++ ;
-        }
-
-    return(count);
-
-
-}
-
-int donneur::stat3()
-{
-    QSqlQuery query;
-        int count=0 ;
-        QSqlQuery requete("select * from DONNEUR where GROUPE_SANGUIN ='O+'") ;
-        while(requete.next())
-
-        {
-                count++ ;
-        }
-
-    return(count);
-
-
-}

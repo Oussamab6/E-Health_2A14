@@ -27,6 +27,7 @@ SOURCES += \
     patient.cpp \
     qcustomplot.cpp \
     reservation.cpp \
+    smtp.cpp \
     tableprinter.cpp \
     tache.cpp \
     widget.cpp
@@ -50,6 +51,7 @@ HEADERS += \
     patient.h \
     qcustomplot.h \
     reservation.h \
+    smtp.h \
     tableprinter.h \
     tache.h \
     widget.h

@@ -53,10 +53,13 @@
 #include "machine.h"
 #include "widget.h"
 #include "DuMesengerConnectionDialog.h"
-
+#include <QTime>
+#include <QTimer>
+#include <QDateTime>
 
 
 using namespace DuarteCorporation;
+donneur dn;
 
 health::health(QWidget *parent) :
     QDialog(parent),
@@ -64,16 +67,16 @@ health::health(QWidget *parent) :
 {
     ui->setupUi(this);
     //************************temps***************
-    QTimer *timer=new QTimer(this) ;
-    connect(timer , SIGNAL(timeout()),this,SLOT(showtime()));
-    timer->start();
 
-    QDateTime dateTime=QDateTime::currentDateTime();
-    QString datatimetext=dateTime.toString();
-    ui->date->setText(datatimetext);
-    //update time sinn ya93ed current time but not running
+    //Timer
+        QTimer *timer_p=new QTimer(this);
+        connect(timer_p, SIGNAL(timeout()), this,SLOT(showTime()));
+        timer_p->start(1000);
 
-
+    //DAate systeme
+        QDateTime Date_p=QDateTime::currentDateTime();
+        QString Date_txt=Date_p.toString("dddd dd MMMM yyyy");
+        ui->date->setText(Date_txt);
 
 
    //**********************************************************
@@ -176,21 +179,6 @@ health::health(QWidget *parent) :
 health::~health()
 {
     delete ui;
-}
-void health:: showtime()
-{
-    QTime time=QTime::currentTime();
-
-    QString time_text=time.toString("hh : mm : ss");
-    if ((time.second()%2)==0)
-    {
-        time_text[3] = ' ';
-        time_text[8] = ' ';
-
-
-    }
-    ui->clock->setText(time_text);
-
 }
 
 void health::on_pushButton_ajouter_clicked()
@@ -1487,7 +1475,7 @@ void health:: on_comboBox_reche_3_activated(const QString &arg1)
                   }
 }
 
-/******************************************************/
+/************************* Gestion des donneurs et des dons *****************************/
 
 
 void health::on_pushButton_AjouterDonneur_2_clicked()
@@ -1526,6 +1514,8 @@ void health::on_pushButton_ModifierDonneur_2_clicked()
         else
         {
             ui->pushButton_ModifierDonneur_2->setText("Modifier");
+            ui->comboBox_CIN->clear();
+            ui->comboBox_CIN->addItems(dn.getCINs());
             ui->tableViewDonneur_2->setModel(tmpdonneur.afficher());
         }
 }
@@ -1533,23 +1523,25 @@ void health::on_pushButton_ModifierDonneur_2_clicked()
 void health::on_pushButton_SupprimerDonneur_2_clicked()
 {
     QItemSelectionModel *select = ui->tableViewDonneur_2->selectionModel();
-       QMessageBox msgbox;
-       int cin =select->selectedRows(0).value(0).data().toInt();
-               msgbox.setWindowTitle("supprimer");
-               msgbox.setText("voulez_vous supprimer cette réclamation?");
-               msgbox.setStandardButtons(QMessageBox ::Yes);
-               msgbox.addButton(QMessageBox::No);
-               if(msgbox.exec()==QMessageBox::Yes)
-   {
+    QMessageBox msgbox;
+    int cin =select->selectedRows(0).value(0).data().toInt();
+    msgbox.setWindowTitle("supprimer");
+    msgbox.setText("voulez_vous supprimer cette réclamation?");
+    msgbox.setStandardButtons(QMessageBox ::Yes);
+    msgbox.addButton(QMessageBox::No);
+    if(msgbox.exec()==QMessageBox::Yes)
+    {
 
-       if(tmpdonneur.supprimer(cin))
-       {
-           QMessageBox::information(nullptr,QObject::tr("OK"),QObject::tr("suppression effectuée \n click cancel to exit."), QMessageBox::Cancel);
-           ui->tableViewDonneur_2->setModel(tmpdonneur.afficher());
-           //ui->statusbar->showMessage("Donneur supprimé");
-       }
+        if(tmpdonneur.supprimer(cin))
+        {
+            QMessageBox::information(nullptr,QObject::tr("OK"),QObject::tr("suppression effectuée \n click cancel to exit."), QMessageBox::Cancel);
+            ui->comboBox_CIN->clear();
+            ui->comboBox_CIN->addItems(dn.getCINs());
+            ui->tableViewDonneur_2->setModel(tmpdonneur.afficher());
+            //ui->statusbar->showMessage("Donneur supprimé");
+        }
 
-   }
+}
 }
 
 void health::on_pushButton_ImprimerDonneur_2_clicked()
@@ -1635,7 +1627,7 @@ void health::on_pushButton_TrierDonneur_2_clicked()
 void health::on_pushButton_statistique_2_clicked()
 {
     float s;
-    donneur d;
+    don d;
     s=d.stat1();
     ui->lab_stat1_2->setNum(s);
     float s1;
@@ -1644,23 +1636,36 @@ void health::on_pushButton_statistique_2_clicked()
     float s2;
     s2=d.stat3();
     ui->lab_stat3_2->setNum(s2);
+    float s3;
+    s3=d.stat4();
+    ui->lab_stat4_2->setNum(s3);
+
+    if(s==0 || s1==0 || s2==0 || s3==0) {
+        A.write_to_arduino("1");
+    } else {
+         A.write_to_arduino("0");
+    }
+
 }
+
 
 void health::on_pushButtonAjouterDon_2_clicked()
 {
+    donneur dn;
     int id=ui->referenceLineEdit_2->text().toInt();
     int quantite = ui->quantiteLineEdit_2->text().toInt();
-    QString date_prelev=ui->dateDePrLVementDateEdit_2->date().toString("dd/MM/yyyy");
+    QString date_prelev= dn.getDatePrel(ui->comboBox_CIN->currentText());
     QString emplacement=ui->emplacementLineEdit_2->text();
+    QString cin = ui->comboBox_CIN->currentText();
 
-    don don(id,quantite,emplacement,date_prelev);
+    don don(id,quantite,emplacement,date_prelev,cin);
 
     bool test=don.ajouter();
 
     if (test)
     {
         ui->tableViewDon_2->setModel(tmpdon.afficher());
-       // ui->statusbar->showMessage("Don ajouté");
+        // ui->statusbar->showMessage("Don ajouté");
     }
 }
 
@@ -3186,7 +3191,11 @@ void health::on_verticalSlidersong_actionTriggered(int position)
 }
 
 
+void health::showTime()
+{
+    ui->time->setText(QTime::currentTime().toString("hh:mm:ss"));
 
+}
 
 void health::on_pushButton_3_clicked()
 {
@@ -3197,4 +3206,15 @@ void health::on_pushButton_3_clicked()
  vw->setGeometry(500,500,300,400);
  vw->show();
  player->play();
+}
+
+void health::on_envoi_mail_clicked()
+{
+    QItemSelectionModel *select = ui->tableViewDonneur_2->selectionModel();
+
+    QString email =select->selectedRows(3).value(0).data().toString();
+
+    Smtp* smtp = new Smtp("beyaghalia.necib@esprit.tn","192SFT2560", "smtp.gmail.com", 465);
+
+    smtp->sendMail("beyaghalia.necib@esprit.tn", email, "Reception du don","Bonjour, ceci est un mail automatique pour vous informer que nous avons reçu votre don, Nous vous remercions infiniment pour votre générosité pour aider les autres! Bien a vous.");
 }

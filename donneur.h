@@ -38,13 +38,13 @@ public:
 
     bool ajouter();
     QSqlQueryModel * afficher();
+    QStringList getCINs();
+    QString getDatePrel(QString);
     bool supprimer(int);
     QSqlQueryModel *trier(QString,QString);
     QSqlQueryModel *rechercherNom(QString input);
     QSqlQueryModel *rechercherGroupeS(QString input);
     QSqlQueryModel *rechercherDate(QString input);
-    int stat1();
-    int stat2();
-    int stat3();
+
 };
 #endif // DONNEUR_H

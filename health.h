@@ -29,6 +29,7 @@
 #include <QPrinter>
 #include"QDate"
 #include<QDialog>
+#include "smtp.h"
 
 
 
@@ -364,7 +365,9 @@ private slots:
         void on_pushButton_son_clicked();
 
         void on_pushButton_3_clicked();
-        void showtime();
+        void showTime();
+
+        void on_envoi_mail_clicked();
 
 private:
     Ui::health *ui;
