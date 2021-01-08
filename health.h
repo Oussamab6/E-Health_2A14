@@ -358,6 +358,11 @@ private slots:
 
         void on_verticalSlidersong_actionTriggered(int action);
 
+
+        void on_pushButton_ret202_clicked();
+
+        void on_pushButton_son_clicked();
+
 private:
     Ui::health *ui;
     QPropertyAnimation* animation ;

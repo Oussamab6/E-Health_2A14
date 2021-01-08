@@ -2209,6 +2209,17 @@ void health::on_pushButton_ret200_clicked()
     ui->stackedWidget_2->setCurrentIndex(2);
 
 }
+void health::on_pushButton_ret202_clicked()
+{
+    ui->stackedWidget_2->setCurrentIndex(0);
+
+}
+void health::on_pushButton_son_clicked()
+{
+    ui->stackedWidget_2->setCurrentIndex(15);
+
+}
+
 void health::on_pushButton_salaire_clicked()
 {
     ui->stackedWidget_2->setCurrentIndex(12);
@@ -3142,3 +3153,6 @@ void health::on_verticalSlidersong_actionTriggered(int position)
     reproductor->setVolume(position);
 
 }
+
+
+
