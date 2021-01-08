@@ -1,3 +1,7 @@
+#include <QTimer>
+#include<QDateTime>
+#include <QMediaPlayer>
+#include <QVideoWidget>
 #include "health.h"
 #include "ui_health.h"
 #include "emploi_du_temps.h"
@@ -59,6 +63,19 @@ health::health(QWidget *parent) :
     ui(new Ui::health)
 {
     ui->setupUi(this);
+    //************************temps***************
+    QTimer *timer=new QTimer(this) ;
+    connect(timer , SIGNAL(timeout()),this,SLOT(showtime()));
+    timer->start();
+
+    QDateTime dateTime=QDateTime::currentDateTime();
+    QString datatimetext=dateTime.toString();
+    ui->date->setText(datatimetext);
+    //update time sinn ya93ed current time but not running
+
+
+
+
    //**********************************************************
    int ret =A.connect_arduino();//lancer la connection to arduino
     switch (ret) {
@@ -160,7 +177,21 @@ health::~health()
 {
     delete ui;
 }
+void health:: showtime()
+{
+    QTime time=QTime::currentTime();
 
+    QString time_text=time.toString("hh : mm : ss");
+    if ((time.second()%2)==0)
+    {
+        time_text[3] = ' ';
+        time_text[8] = ' ';
+
+
+    }
+    ui->clock->setText(time_text);
+
+}
 
 void health::on_pushButton_ajouter_clicked()
 {
@@ -3156,3 +3187,14 @@ void health::on_verticalSlidersong_actionTriggered(int position)
 
 
 
+
+void health::on_pushButton_3_clicked()
+{
+ QMediaPlayer* player=new QMediaPlayer;
+ QVideoWidget* vw=new QVideoWidget;
+ player->setVideoOutput(vw);
+ player->setMedia(QUrl::fromLocalFile("C:/Users/Synda/OneDrive/Bureau/video.mp4"));
+ vw->setGeometry(500,500,300,400);
+ vw->show();
+ player->play();
+}

@@ -363,6 +363,9 @@ private slots:
 
         void on_pushButton_son_clicked();
 
+        void on_pushButton_3_clicked();
+        void showtime();
+
 private:
     Ui::health *ui;
     QPropertyAnimation* animation ;

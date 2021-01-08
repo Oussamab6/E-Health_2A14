@@ -16,9 +16,9 @@
   <widget class="QStackedWidget" name="stackedWidget_2">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>10</y>
-     <width>1361</width>
+     <x>20</x>
+     <y>60</y>
+     <width>1151</width>
      <height>691</height>
     </rect>
    </property>
@@ -261,21 +261,21 @@
       <rect>
        <x>20</x>
        <y>40</y>
-       <width>301</width>
+       <width>421</width>
        <height>101</height>
       </rect>
      </property>
      <property name="font">
       <font>
        <family>Edwardian Script ITC</family>
-       <pointsize>65</pointsize>
+       <pointsize>50</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 65pt &quot;Edwardian Script ITC&quot;;
+      <string notr="true">font: 50pt &quot;Edwardian Script ITC&quot;;
 color: rgb(85, 255, 127);
 color: rgb(85, 170, 255);
 color: rgb(0, 77, 64);
@@ -10331,6 +10331,63 @@ color :white</string>
      </widget>
     </widget>
    </widget>
+  </widget>
+  <widget class="QPushButton" name="pushButton_3">
+   <property name="geometry">
+    <rect>
+     <x>1170</x>
+     <y>530</y>
+     <width>114</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: redrgb(170, 0, 0)rgb(170, 0, 0);
+background-color: rgb(170, 0, 0);
+    border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: beige;
+    font: bold 14px;
+    min-width: 6em;
+    padding: 4;</string>
+   </property>
+   <property name="text">
+    <string>video !</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="clock">
+   <property name="geometry">
+    <rect>
+     <x>1110</x>
+     <y>90</y>
+     <width>241</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 16pt &quot;MV Boli&quot;;
+</string>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="date">
+   <property name="geometry">
+    <rect>
+     <x>1210</x>
+     <y>130</y>
+     <width>101</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 9pt &quot;Segoe Script&quot;;</string>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
   </widget>
  </widget>
  <customwidgets>
