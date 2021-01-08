@@ -346,6 +346,18 @@ private slots:
         void on_pushButton_22_clicked();
 
 
+        void on_pushButton_pdf_4_clicked();
+
+        void on_pushButton_imprimer_4_clicked();
+
+        void on_pushButton_pdf_3_clicked();
+
+        void on_pushButton_imprimer_3_clicked();
+
+        void on_pushButton_opensong_clicked();
+
+        void on_verticalSlidersong_actionTriggered(int action);
+
 private:
     Ui::health *ui;
     QPropertyAnimation* animation ;
@@ -367,6 +379,7 @@ private:
     Actions action;
      emploi tmpemp;
      reservation tmpres;
+     QMediaPlayer        *reproductor;
 
 };
 

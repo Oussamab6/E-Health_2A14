@@ -141,6 +141,18 @@ health::health(QWidget *parent) :
 
 
 
+    reproductor = new QMediaPlayer(this);
+
+   connect(ui->pushButton_playsong, &QPushButton::clicked, reproductor, &QMediaPlayer::play);
+   connect(ui->pushButton_pausesong, &QPushButton::clicked, reproductor, &QMediaPlayer::pause);
+   connect(ui->pushButton_stopsong, &QPushButton::clicked, reproductor, &QMediaPlayer::stop);
+
+
+
+
+
+
+
 
 }
 
@@ -2985,3 +2997,148 @@ void health::on_pushButton_22_clicked()
 Statistique *a=new Statistique();
     a->show();
 }*/
+
+void health::on_pushButton_pdf_4_clicked()
+{
+    QString strStream;
+        QTextStream out(&strStream);
+
+         const int rowCount = ui->tableView->model()->rowCount();
+         const int columnCount = ui->tableView->model()->columnCount();
+        out <<  "<html>\n"
+        "<head>\n"
+                         "<meta Content=\"Text/html; charset=Windows-1251\">\n"
+                         <<  QString("<title>%1</title>\n").arg("strTitle")
+                         <<  "</head>\n"
+                         "<body bgcolor=#ffffff link=#5000A0>\n"
+
+                        //     "<align='right'> " << datefich << "</align>"
+                         "<center> <H1>liste d'Abonnement </H1></br></br><table border=1 cellspacing=0 cellpadding=2>\n";
+
+                     // headers
+                     out << "<thead><tr bgcolor=#f0f0f0> <th>Numero</th>";
+                     for (int column = 0; column < columnCount; column++)
+                         if (!ui->tableView->isColumnHidden(column))
+                             out << QString("<th>%1</th>").arg(ui->tableView->model()->headerData(column, Qt::Horizontal).toString());
+                     out << "</tr></thead>\n";
+
+                     // data table
+                     for (int row = 0; row < rowCount; row++) {
+                         out << "<tr> <td bkcolor=0>" << row+1 <<"</td>";
+                         for (int column = 0; column < columnCount; column++) {
+                             if (!ui->tableView->isColumnHidden(column)) {
+                                 QString data = ui->tableView->model()->data(ui->tableView->model()->index(row, column)).toString().simplified();
+                                 out << QString("<td bkcolor=0>%1</td>").arg((!data.isEmpty()) ? data : QString("&nbsp;"));
+                             }
+                         }
+                         out << "</tr>\n";
+                     }
+                     out <<  "</table> </center>\n"
+                         "</body>\n"
+                         "</html>\n";
+
+               QString fileName = QFileDialog::getSaveFileName((QWidget* )0, "Sauvegarder en PDF", QString(), "*.pdf");
+                 if (QFileInfo(fileName).suffix().isEmpty()) { fileName.append(".pdf"); }
+
+                QPrinter printer (QPrinter::PrinterResolution);
+                 printer.setOutputFormat(QPrinter::PdfFormat);
+                printer.setPaperSize(QPrinter::A4);
+               printer.setOutputFileName(fileName);
+
+                QTextDocument doc;
+                 doc.setHtml(strStream);
+                 doc.setPageSize(printer.pageRect().size()); // This is necessary if you want to hide the page number
+                 doc.print(&printer);
+}
+
+void health::on_pushButton_imprimer_4_clicked()
+{
+    QPrinter printer;
+
+        printer.setPrinterName("desiered printer name");
+
+      QPrintDialog dialog(&printer,this);
+
+        if(dialog.exec()== QDialog::Rejected)
+
+            return;
+}
+
+void health::on_pushButton_pdf_3_clicked()
+{
+    QString strStream;
+        QTextStream out(&strStream);
+
+         const int rowCount = ui->tableView_3->model()->rowCount();
+         const int columnCount = ui->tableView_3->model()->columnCount();
+        out <<  "<html>\n"
+        "<head>\n"
+                         "<meta Content=\"Text/html; charset=Windows-1251\">\n"
+                         <<  QString("<title>%1</title>\n").arg("strTitle")
+                         <<  "</head>\n"
+                         "<body bgcolor=#ffffff link=#5000A0>\n"
+
+                        //     "<align='right'> " << datefich << "</align>"
+                         "<center> <H1>liste d'Abonnement </H1></br></br><table border=1 cellspacing=0 cellpadding=2>\n";
+
+                     // headers
+                     out << "<thead><tr bgcolor=#f0f0f0> <th>Numero</th>";
+                     for (int column = 0; column < columnCount; column++)
+                         if (!ui->tableView_3->isColumnHidden(column))
+                             out << QString("<th>%1</th>").arg(ui->tableView_3->model()->headerData(column, Qt::Horizontal).toString());
+                     out << "</tr></thead>\n";
+
+                     // data table
+                     for (int row = 0; row < rowCount; row++) {
+                         out << "<tr> <td bkcolor=0>" << row+1 <<"</td>";
+                         for (int column = 0; column < columnCount; column++) {
+                             if (!ui->tableView_3->isColumnHidden(column)) {
+                                 QString data = ui->tableView_3->model()->data(ui->tableView_3->model()->index(row, column)).toString().simplified();
+                                 out << QString("<td bkcolor=0>%1</td>").arg((!data.isEmpty()) ? data : QString("&nbsp;"));
+                             }
+                         }
+                         out << "</tr>\n";
+                     }
+                     out <<  "</table> </center>\n"
+                         "</body>\n"
+                         "</html>\n";
+
+               QString fileName = QFileDialog::getSaveFileName((QWidget* )0, "Sauvegarder en PDF", QString(), "*.pdf");
+                 if (QFileInfo(fileName).suffix().isEmpty()) { fileName.append(".pdf"); }
+
+                QPrinter printer (QPrinter::PrinterResolution);
+                 printer.setOutputFormat(QPrinter::PdfFormat);
+                printer.setPaperSize(QPrinter::A4);
+               printer.setOutputFileName(fileName);
+
+                QTextDocument doc;
+                 doc.setHtml(strStream);
+                 doc.setPageSize(printer.pageRect().size()); // This is necessary if you want to hide the page number
+                 doc.print(&printer);
+}
+
+
+void health::on_pushButton_imprimer_3_clicked()
+{
+    QPrinter printer;
+
+        printer.setPrinterName("desiered printer name");
+
+      QPrintDialog dialog(&printer,this);
+
+        if(dialog.exec()== QDialog::Rejected)
+
+            return;
+}
+
+void health::on_pushButton_opensong_clicked()
+{
+    QString nombreArchivo = QFileDialog::getOpenFileName(this,"Selectionner de l'archive ",".mp3");
+      reproductor->setMedia(QUrl::fromLocalFile(nombreArchivo));
+}
+
+void health::on_verticalSlidersong_actionTriggered(int position)
+{
+    reproductor->setVolume(position);
+
+}
