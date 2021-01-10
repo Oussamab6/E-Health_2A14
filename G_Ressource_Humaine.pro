@@ -73,4 +73,5 @@ RESOURCES += \
     Ressource.qrc \
     tanslate.qrc
 
-DISTFILES +=
+DISTFILES += \
+    fermlia.png

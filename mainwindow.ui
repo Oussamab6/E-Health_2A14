@@ -183,6 +183,25 @@ color: rgb(255, 0, 0);</string>
       <bool>true</bool>
      </property>
     </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>286</x>
+       <y>40</y>
+       <width>81</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap resource="Ressource.qrc">:/hospital-logo-clinic-health-care-physician-business-thumbnail.jpg</pixmap>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
+     </property>
+    </widget>
     <zorder>label_2</zorder>
     <zorder>label_3</zorder>
     <zorder>lineEdit_user</zorder>
@@ -191,6 +210,7 @@ color: rgb(255, 0, 0);</string>
     <zorder>lineEdit_pass</zorder>
     <zorder>label_4</zorder>
     <zorder>label_6</zorder>
+    <zorder>label</zorder>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

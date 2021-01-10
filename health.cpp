@@ -107,7 +107,7 @@ health::health(QWidget *parent) :
     animation= new QPropertyAnimation(ui->label_7, "geometry");
     animation->setDuration(3000);
     animation->setStartValue(ui->label_7->geometry());
-    animation->setEndValue(QRect(200,100,300,100));
+    animation->setEndValue(QRect(300,100,400,400));
     animation->start();
     //l'animation pour "choisir votre choix SVP"
     /*animation= new QPropertyAnimation(ui->label_11, "geometry");
@@ -2132,50 +2132,86 @@ void health::on_pushButton_20_gc_clicked()
     dialog.exec();
 }
 
+void health::on_comboBox_resou_activated(const QString &arg1)
+{
+    if(arg1=="Gérer les Employés")
+    {
+        ui->stackedWidget_2->setCurrentIndex(1);
+    }
+    else if(arg1=="Gérer Les Taches ")
+    {
+        ui->stackedWidget_2->setCurrentIndex(2);
+    }
+}
 
+void health::on_comboBox_pat_activated(const QString &arg1)
+{
+    if(arg1=="Gérer les patients")
+    {
+        ui->stackedWidget_2->setCurrentIndex(4);
+    }
+    else if(arg1=="Gérer les dossiers médicales")
+    {
+        ui->stackedWidget_2->setCurrentIndex(5);
+    }
+    else if(arg1=="Facturation")
+    {
+        ui->stackedWidget_2->setCurrentIndex(6);
+    }
+}
 
-void health::on_pushButton_em_clicked()
+void health::on_comboBox_mach_activated(const QString &arg1)
 {
-    ui->stackedWidget_2->setCurrentIndex(1);
+    if(arg1=="Gérer les machines")
+    {
+        ui->stackedWidget_2->setCurrentIndex(8);
+    }
+    else if(arg1=="Gérer les médicaments")
+    {
+        ui->stackedWidget_2->setCurrentIndex(7);
+    }
 }
-void health::on_pushButton_ta_clicked()
+
+void health::on_comboBox_rend_activated(const QString &arg1)
 {
-    ui->stackedWidget_2->setCurrentIndex(2);
+    if(arg1=="Gérer les réservations")
+    {
+        ui->stackedWidget_2->setCurrentIndex(13);
+          ui->stackedWidget_9->setCurrentIndex(4);
+    }
+    else if(arg1=="Gérer les emploi du temps")
+    {
+        ui->stackedWidget_2->setCurrentIndex(14);
+        ui->stackedWidget_8->setCurrentIndex(4);
+    }
 }
-void health::on_pushButton_don_clicked()
+
+void health::on_comboBox_contrat_activated(const QString &arg1)
 {
-    ui->stackedWidget_2->setCurrentIndex(3);
-}
-void health::on_pushButton_pa_clicked()
-{
-    ui->stackedWidget_2->setCurrentIndex(4);
-}
-void health::on_pushButton_dm_clicked()
-{
-    ui->stackedWidget_2->setCurrentIndex(5);
-}
-void health::on_pushButton_fa_clicked()
-{
-    ui->stackedWidget_2->setCurrentIndex(6);
+    if(arg1=="Gérer les Partenaires  et les contrats")
+    {
+        ui->stackedWidget_2->setCurrentIndex(9);
+    }
 
 }
-void health::on_pushButton_md_clicked()
-{
-    ui->stackedWidget_2->setCurrentIndex(7);
-}
-void health::on_pushButton_ma_clicked()
-{
-    ui->stackedWidget_2->setCurrentIndex(8);
-}
-void health::on_pushButton_pc_clicked()
-{
-    ui->stackedWidget_2->setCurrentIndex(9);
-}
-void health::on_pushButton_arduino_clicked()
-{
-    ui->stackedWidget_2->setCurrentIndex(10);
 
+void health::on_comboBox_dons_activated(const QString &arg1)
+{
+    if(arg1=="Gérerles Donneurs et les Dons ")
+    {
+        ui->stackedWidget_2->setCurrentIndex(3);
+    }
 }
+
+void health::on_comboBox_arduino_activated(const QString &arg1)
+{
+    if(arg1=="Arduino ")
+    {
+        ui->stackedWidget_2->setCurrentIndex(10);
+
+    }
+}
+
 
 
 
@@ -3218,3 +3254,5 @@ void health::on_envoi_mail_clicked()
 
     smtp->sendMail("beyaghalia.necib@esprit.tn", email, "Reception du don","Bonjour, ceci est un mail automatique pour vous informer que nous avons reçu votre don, Nous vous remercions infiniment pour votre générosité pour aider les autres! Bien a vous.");
 }
+
+

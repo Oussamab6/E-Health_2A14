@@ -16,251 +16,43 @@
   <widget class="QStackedWidget" name="stackedWidget_2">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>130</y>
-     <width>1151</width>
+     <x>50</x>
+     <y>30</y>
+     <width>1231</width>
      <height>691</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(85, 170, 255);</string>
+   </property>
    <property name="currentIndex">
-    <number>3</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="page">
-    <widget class="QPushButton" name="pushButton_em">
+    <widget class="QLabel" name="label_84">
      <property name="geometry">
       <rect>
-       <x>580</x>
-       <y>20</y>
-       <width>141</width>
-       <height>31</height>
+       <x>-120</x>
+       <y>0</y>
+       <width>491</width>
+       <height>691</height>
       </rect>
      </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: red;
-    border-style: outset;
-    border-width: 2px;
-    border-radius: 10px;
-    border-color: beige;
-    font: bold 14px;
-    min-width: 6em;
-    padding: 4;</string>
-     </property>
      <property name="text">
-      <string>Gérer les employé</string>
+      <string/>
      </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_ta">
-     <property name="geometry">
-      <rect>
-       <x>800</x>
-       <y>20</y>
-       <width>141</width>
-       <height>31</height>
-      </rect>
+     <property name="pixmap">
+      <pixmap resource="Ressource.qrc">:/fermlia.png</pixmap>
      </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: red;
-    border-style: outset;
-    border-width: 2px;
-    border-radius: 10px;
-    border-color: beige;
-    font: bold 14px;
-    min-width: 6em;
-    padding: 4;</string>
-     </property>
-     <property name="text">
-      <string>Gérer les taches </string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_don">
-     <property name="geometry">
-      <rect>
-       <x>620</x>
-       <y>240</y>
-       <width>221</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: red;
-    border-style: outset;
-    border-width: 2px;
-    border-radius: 10px;
-    border-color: beige;
-    font: bold 14px;
-    min-width: 6em;
-    padding: 4;</string>
-     </property>
-     <property name="text">
-      <string>Gérer les donneurs et les dons</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_pa">
-     <property name="geometry">
-      <rect>
-       <x>570</x>
-       <y>90</y>
-       <width>151</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: red;
-    border-style: outset;
-    border-width: 2px;
-    border-radius: 10px;
-    border-color: beige;
-    font: bold 14px;
-    min-width: 6em;
-    padding: 4;</string>
-     </property>
-     <property name="text">
-      <string>Gérer les patients </string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_dm">
-     <property name="geometry">
-      <rect>
-       <x>790</x>
-       <y>90</y>
-       <width>201</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: red;
-    border-style: outset;
-    border-width: 2px;
-    border-radius: 10px;
-    border-color: beige;
-    font: bold 14px;
-    min-width: 6em;
-    padding: 4;</string>
-     </property>
-     <property name="text">
-      <string>Gérer les Dossiers médicals</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_fa">
-     <property name="geometry">
-      <rect>
-       <x>690</x>
-       <y>150</y>
-       <width>114</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: red;
-    border-style: outset;
-    border-width: 2px;
-    border-radius: 10px;
-    border-color: beige;
-    font: bold 14px;
-    min-width: 6em;
-    padding: 4;</string>
-     </property>
-     <property name="text">
-      <string>Facturation </string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_md">
-     <property name="geometry">
-      <rect>
-       <x>800</x>
-       <y>192</y>
-       <width>161</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: red;
-    border-style: outset;
-    border-width: 2px;
-    border-radius: 10px;
-    border-color: beige;
-    font: bold 14px;
-    min-width: 6em;
-    padding: 4;</string>
-     </property>
-     <property name="text">
-      <string>Gérer les medicament </string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_ma">
-     <property name="geometry">
-      <rect>
-       <x>543</x>
-       <y>192</y>
-       <width>151</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: red;
-    border-style: outset;
-    border-width: 2px;
-    border-radius: 10px;
-    border-color: beige;
-    font: bold 14px;
-    min-width: 6em;
-    padding: 4;</string>
-     </property>
-     <property name="text">
-      <string>Gérer le machines </string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_pc">
-     <property name="geometry">
-      <rect>
-       <x>600</x>
-       <y>300</y>
-       <width>281</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: red;
-    border-style: outset;
-    border-width: 2px;
-    border-radius: 10px;
-    border-color: beige;
-    font: bold 14px;
-    min-width: 6em;
-    padding: 4;</string>
-     </property>
-     <property name="text">
-      <string>Gérer les partenaires et les contrats </string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_arduino">
-     <property name="geometry">
-      <rect>
-       <x>663</x>
-       <y>372</y>
-       <width>121</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: red;
-    border-style: outset;
-    border-width: 2px;
-    border-radius: 10px;
-    border-color: beige;
-    font: bold 14px;
-    min-width: 6em;
-    padding: 4;</string>
-     </property>
-     <property name="text">
-      <string>Arduino</string>
+     <property name="scaledContents">
+      <bool>true</bool>
      </property>
     </widget>
     <widget class="QLabel" name="label_7">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>40</y>
+       <x>190</x>
+       <y>160</y>
        <width>421</width>
        <height>101</height>
       </rect>
@@ -268,14 +60,14 @@
      <property name="font">
       <font>
        <family>Edwardian Script ITC</family>
-       <pointsize>50</pointsize>
+       <pointsize>72</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 50pt &quot;Edwardian Script ITC&quot;;
+      <string notr="true">font: 72pt &quot;Edwardian Script ITC&quot;;
 color: rgb(85, 255, 127);
 color: rgb(85, 170, 255);
 color: rgb(0, 77, 64);
@@ -284,20 +76,85 @@ color: rgb(0, 0, 128);
 </string>
      </property>
      <property name="text">
-      <string>Bienvenue</string>
+      <string>Bienvenue !</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_reservation">
+    <widget class="QLabel" name="time">
      <property name="geometry">
       <rect>
-       <x>920</x>
-       <y>230</y>
-       <width>221</width>
-       <height>31</height>
+       <x>870</x>
+       <y>580</y>
+       <width>241</width>
+       <height>20</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: red;
+      <string notr="true">font: 16pt &quot;MV Boli&quot;;
+</string>
+     </property>
+     <property name="text">
+      <string>Time</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="date">
+     <property name="geometry">
+      <rect>
+       <x>880</x>
+       <y>620</y>
+       <width>101</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 9pt &quot;Segoe Script&quot;;</string>
+     </property>
+     <property name="text">
+      <string>date</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="widget_4" native="true">
+     <property name="geometry">
+      <rect>
+       <x>740</x>
+       <y>131</y>
+       <width>321</width>
+       <height>431</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(152, 152, 152);
+border-color: rgb(255, 255, 255);
+</string>
+     </property>
+     <widget class="QWidget" name="widget_3" native="true">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>301</width>
+        <height>381</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(61, 61, 46);</string>
+      </property>
+      <widget class="QWidget" name="">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>281</width>
+         <height>343</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <layout class="QGridLayout" name="gridLayout_3">
+          <item row="5" column="0">
+           <widget class="QComboBox" name="comboBox_contrat">
+            <property name="styleSheet">
+             <string notr="true">background-color: red;
+background-color: rgb(152, 152, 152);
     border-style: outset;
     border-width: 2px;
     border-radius: 10px;
@@ -305,22 +162,24 @@ color: rgb(0, 0, 128);
     font: bold 14px;
     min-width: 6em;
     padding: 4;</string>
-     </property>
-     <property name="text">
-      <string>Gérer les reservations </string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_emploi">
-     <property name="geometry">
-      <rect>
-       <x>920</x>
-       <y>280</y>
-       <width>221</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: red;
+            </property>
+            <item>
+             <property name="text">
+              <string>Partenaires et Contrats</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Gérer les Partenaires  et les contrats</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="7" column="0">
+           <widget class="QComboBox" name="comboBox_arduino">
+            <property name="styleSheet">
+             <string notr="true">background-color: red;
+background-color: rgb(152, 152, 152);
     border-style: outset;
     border-width: 2px;
     border-radius: 10px;
@@ -328,22 +187,19 @@ color: rgb(0, 0, 128);
     font: bold 14px;
     min-width: 6em;
     padding: 4;</string>
-     </property>
-     <property name="text">
-      <string>Gérer les emploi du temps</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_son">
-     <property name="geometry">
-      <rect>
-       <x>367</x>
-       <y>190</y>
-       <width>121</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: red;
+            </property>
+            <item>
+             <property name="text">
+              <string>Arduino </string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="6" column="0">
+           <widget class="QComboBox" name="comboBox_dons">
+            <property name="styleSheet">
+             <string notr="true">background-color: red;
+background-color: rgb(152, 152, 152);
     border-style: outset;
     border-width: 2px;
     border-radius: 10px;
@@ -351,9 +207,222 @@ color: rgb(0, 0, 128);
     font: bold 14px;
     min-width: 6em;
     padding: 4;</string>
+            </property>
+            <item>
+             <property name="text">
+              <string>les Dons</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Gérerles Donneurs et les Dons </string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_82">
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(61, 61, 46);
+color: rgb(255, 255, 255);
+   border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: beige;
+    font: bold 14px;
+    min-width: 6em;
+    padding: 4;</string>
+            </property>
+            <property name="text">
+             <string>                     Gestion de :</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QComboBox" name="comboBox_mach">
+            <property name="styleSheet">
+             <string notr="true">background-color: red;
+background-color: rgb(152, 152, 152);
+    border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: beige;
+    font: bold 14px;
+    min-width: 6em;
+    padding: 4;</string>
+            </property>
+            <item>
+             <property name="text">
+              <string>machines et médicaments</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Gérer les machines</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Gérer les médicaments</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QComboBox" name="comboBox_pat">
+            <property name="styleSheet">
+             <string notr="true">background-color: red;
+background-color: rgb(152, 152, 152);
+    border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: beige;
+    font: bold 14px;
+    min-width: 6em;
+    padding: 4;</string>
+            </property>
+            <item>
+             <property name="text">
+              <string> Patient et Facturation</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Gérer les patients</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Gérer les dossiers médicales</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Facturation</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QComboBox" name="comboBox_rend">
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(152, 152, 152);
+    border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: beige;
+    font: bold 14px;
+    min-width: 6em;
+    padding: 4;</string>
+            </property>
+            <item>
+             <property name="text">
+              <string>Réservation et Rendez-vous</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Gérer les réservations</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Gérer les emploi du temps</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QComboBox" name="comboBox_resou">
+            <property name="styleSheet">
+             <string notr="true">background-color: red;
+    border-style: outset;
+    border-width: 2px;
+background-color: rgb(152, 152, 152);
+    border-radius: 10px;
+    border-color: beige;
+    font: bold 14px;
+    min-width: 6em;
+    padding: 4;</string>
+            </property>
+            <item>
+             <property name="text">
+              <string>Ressource Humaines</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Gérer les Employés</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Gérer Les Taches </string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_3">
+          <property name="styleSheet">
+           <string notr="true">background-color: redrgb(170, 0, 0)rgb(170, 0, 0);
+background-color: rgb(170, 0, 0);
+    border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: beige;
+    font: bold 14px;
+    min-width: 6em;
+    padding: 4;</string>
+          </property>
+          <property name="text">
+           <string>video !</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="widget_6" native="true">
+     <property name="geometry">
+      <rect>
+       <x>1060</x>
+       <y>430</y>
+       <width>171</width>
+       <height>41</height>
+      </rect>
      </property>
-     <property name="text">
-      <string>Réglage de son </string>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(152, 152, 152);</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="widget_8" native="true">
+     <property name="geometry">
+      <rect>
+       <x>1060</x>
+       <y>321</y>
+       <width>171</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(152, 152, 152);</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="widget_7" native="true">
+     <property name="geometry">
+      <rect>
+       <x>1060</x>
+       <y>211</y>
+       <width>171</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(152, 152, 152);</string>
      </property>
     </widget>
    </widget>
@@ -378,7 +447,7 @@ color: rgb(0, 0, 128);
       <string notr="true">background-color: rgb(85, 170, 255);</string>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="AFFICHE">
       <attribute name="title">
@@ -10349,63 +10418,6 @@ color :white</string>
      </widget>
     </widget>
    </widget>
-  </widget>
-  <widget class="QPushButton" name="pushButton_3">
-   <property name="geometry">
-    <rect>
-     <x>1170</x>
-     <y>530</y>
-     <width>114</width>
-     <height>28</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: redrgb(170, 0, 0)rgb(170, 0, 0);
-background-color: rgb(170, 0, 0);
-    border-style: outset;
-    border-width: 2px;
-    border-radius: 10px;
-    border-color: beige;
-    font: bold 14px;
-    min-width: 6em;
-    padding: 4;</string>
-   </property>
-   <property name="text">
-    <string>video !</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="time">
-   <property name="geometry">
-    <rect>
-     <x>1180</x>
-     <y>160</y>
-     <width>241</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">font: 16pt &quot;MV Boli&quot;;
-</string>
-   </property>
-   <property name="text">
-    <string>Time</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="date">
-   <property name="geometry">
-    <rect>
-     <x>1190</x>
-     <y>200</y>
-     <width>101</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">font: 9pt &quot;Segoe Script&quot;;</string>
-   </property>
-   <property name="text">
-    <string>date</string>
-   </property>
   </widget>
  </widget>
  <customwidgets>

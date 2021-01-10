@@ -220,14 +220,14 @@ private slots:
         void uglyPrint2(QPrinter *printer);
 
 
-        void on_pushButton_em_clicked();
+       /* void on_pushButton_em_clicked();
         void on_pushButton_ta_clicked();
         void on_pushButton_don_clicked();
         void on_pushButton_pa_clicked();
         void on_pushButton_dm_clicked();
         void on_pushButton_md_clicked();
         void on_pushButton_ma_clicked();
-        void on_pushButton_pc_clicked();
+        void on_pushButton_pc_clicked();*/
 
 
         void on_pushButton_fa_clicked();
@@ -246,7 +246,7 @@ private slots:
 
         void on_pushButton_ret11_clicked();
 
-        void on_pushButton_arduino_clicked();
+        //void on_pushButton_arduino_clicked();
 
         void on_pushButton_calculer_clicked();
 
@@ -368,6 +368,22 @@ private slots:
         void showTime();
 
         void on_envoi_mail_clicked();
+
+
+
+        void on_comboBox_resou_activated(const QString &arg1);
+
+        void on_comboBox_pat_activated(const QString &arg1);
+
+        void on_comboBox_mach_activated(const QString &arg1);
+
+        void on_comboBox_rend_activated(const QString &arg1);
+
+        void on_comboBox_contrat_activated(const QString &arg1);
+
+        void on_comboBox_dons_activated(const QString &arg1);
+
+        void on_comboBox_arduino_activated(const QString &arg1);
 
 private:
     Ui::health *ui;
